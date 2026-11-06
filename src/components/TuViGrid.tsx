@@ -106,7 +106,7 @@ export const TuViGrid: React.FC<TuViGridProps> = ({
   return (
     <div className="w-full flex flex-col items-center">
       {/* Control bar */}
-      <div className="w-full max-w-6xl flex flex-wrap items-center justify-between gap-2.5 mb-3 px-2 no-print">
+      <div className="w-full max-w-6xl flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 mb-4 p-2.5 sm:p-3 bg-slate-900/80 rounded-xl border border-slate-800/80 backdrop-blur-sm shadow-md no-print">
         {/* Left: Đương số summary */}
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs text-slate-400">Đương số:</span>
@@ -172,7 +172,7 @@ export const TuViGrid: React.FC<TuViGridProps> = ({
             title="In lá số ra giấy hoặc xuất PDF"
           >
             <Printer className="w-3.5 h-3.5 text-slate-400" />
-            <span className="hidden sm:inline">In lá số</span>
+            <span>In Lá Số</span>
           </button>
         </div>
       </div>
