@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TuViChart } from '../engine/tuvi';
 import { Sparkles, BookOpen, AlertCircle, Award, CheckCircle2, RefreshCw, Compass, Shield, Copy, Check, MessageSquare } from 'lucide-react';
 import { TuViRule } from '../knowledge/types';
+import { safeApiRequest } from '../utils/safeApi';
 
 interface InterpretationViewProps {
   chart: TuViChart;
@@ -29,26 +30,28 @@ export const InterpretationView: React.FC<InterpretationViewProps> = ({
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/interpret', {
+      const data = await safeApiRequest<{
+        success: boolean;
+        interpretation?: string;
+        matchedRules?: TuViRule[];
+        source?: string;
+        error?: string;
+      }>('/api/interpret', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chart,
           focusTopic: topic,
           focusPalace: palace
-        })
+        }),
+        timeoutMs: 35000
       });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Lỗi khi gọi API luận giải.');
-      }
 
       setInterpretation(data.interpretation || '');
       setMatchedRules(data.matchedRules || []);
       setSourceNote(data.source || '');
     } catch (err: any) {
-      console.error(err);
+      console.error('Error fetching interpretation:', err);
       setError(err.message || 'Không thể lấy bản luận giải.');
     } finally {
       setLoading(false);

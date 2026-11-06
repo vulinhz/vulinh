@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BaziChart } from '../engine/bazi';
 import { MessageSquare, Send, Sparkles, BookOpen, Shield, Bot, User, Compass } from 'lucide-react';
+import { safeApiRequest } from '../utils/safeApi';
 
 interface BaziChatbotViewProps {
   chart: BaziChart;
@@ -51,14 +52,17 @@ export const BaziChatbotView: React.FC<BaziChatbotViewProps> = ({ chart }) => {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/bazi/chat', {
+      const data = await safeApiRequest<{
+        success: boolean;
+        reply?: string;
+        matchedRules?: any[];
+        error?: string;
+      }>('/api/bazi/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chart, message: text })
+        body: JSON.stringify({ chart, message: text }),
+        timeoutMs: 35000
       });
-
-      if (!res.ok) throw new Error(`Lỗi máy chủ (${res.status})`);
-      const data = await res.json();
 
       const aiMsg: ChatMessage = {
         id: `ai-${Date.now()}`,

@@ -18,6 +18,7 @@ import {
 import { TestCaseResult } from '../engine/testSuite';
 import { BaziTestCase } from '../engine/baziTestSuite';
 import { QATestCase, runComprehensiveQASuite } from '../engine/qaTestSuite';
+import { safeApiRequest } from '../utils/safeApi';
 
 export const TestRunnerView: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -38,24 +39,21 @@ export const TestRunnerView: React.FC = () => {
   const runTests = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/test-suite');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          if (data.qaSuite && data.qaSuite.testCases) {
-            setQaResults(data.qaSuite.testCases);
-          } else {
-            setQaResults(runComprehensiveQASuite().testCases);
-          }
-          if (data.tuvi && data.tuvi.results) {
-            setTuviResults(data.tuvi.results);
-          }
-          if (data.bazi && data.bazi.testCases) {
-            setBaziResults(data.bazi.testCases);
-          }
-          if (data.summary) {
-            setSummary(data.summary);
-          }
+      const data = await safeApiRequest<any>('/api/test-suite', { timeoutMs: 15000 });
+      if (data && data.success) {
+        if (data.qaSuite && data.qaSuite.testCases) {
+          setQaResults(data.qaSuite.testCases);
+        } else {
+          setQaResults(runComprehensiveQASuite().testCases);
+        }
+        if (data.tuvi && data.tuvi.results) {
+          setTuviResults(data.tuvi.results);
+        }
+        if (data.bazi && data.bazi.testCases) {
+          setBaziResults(data.bazi.testCases);
+        }
+        if (data.summary) {
+          setSummary(data.summary);
         }
       } else {
         // Fallback local run

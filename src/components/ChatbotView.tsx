@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { TuViChart } from '../engine/tuvi';
 import { MessageSquare, Send, Bot, User, Sparkles, BookOpen, AlertCircle, Compass } from 'lucide-react';
 import { TuViRule } from '../knowledge/types';
+import { safeApiRequest } from '../utils/safeApi';
 
 interface Message {
   id: string;
@@ -59,7 +60,12 @@ export const ChatbotView: React.FC<ChatbotViewProps> = ({ chart, initialQuestion
     setLoading(true);
 
     try {
-      const response = await fetch('/api/chat', {
+      const data = await safeApiRequest<{
+        success: boolean;
+        reply?: string;
+        matchedRules?: TuViRule[];
+        error?: string;
+      }>('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -69,13 +75,9 @@ export const ChatbotView: React.FC<ChatbotViewProps> = ({ chart, initialQuestion
             role: m.sender === 'user' ? 'user' : 'model',
             text: m.text
           }))
-        })
+        }),
+        timeoutMs: 35000
       });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Lỗi xử lý phản hồi từ server.');
-      }
 
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),

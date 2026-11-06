@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BaziChart } from '../engine/bazi';
 import { Sparkles, BookOpen, Shield, RefreshCw, AlertCircle, Bookmark, Compass } from 'lucide-react';
+import { safeApiRequest } from '../utils/safeApi';
 
 interface BaziInterpretationViewProps {
   chart: BaziChart;
@@ -22,19 +23,16 @@ export const BaziInterpretationView: React.FC<BaziInterpretationViewProps> = ({ 
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/bazi/interpret', {
+      const json = await safeApiRequest<InterpretationResponse>('/api/bazi/interpret', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chart, topic: selectedTopic })
+        body: JSON.stringify({ chart, topic: selectedTopic }),
+        timeoutMs: 35000
       });
 
-      if (!res.ok) {
-        throw new Error(`Lỗi máy chủ (${res.status})`);
-      }
-
-      const json = await res.json();
       setData(json);
     } catch (err: any) {
+      console.error('Error fetching Bazi interpretation:', err);
       setError(err.message || 'Không thể tải bản luận giải.');
     } finally {
       setIsLoading(false);

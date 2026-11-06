@@ -56,13 +56,15 @@ function rateLimiter(req: Request, res: Response, next: NextFunction) {
 
 app.use('/api', rateLimiter);
 
-// 2. Khởi tạo client Google GenAI trên server-side
-const apiKey = process.env.GEMINI_API_KEY;
-let ai: GoogleGenAI | null = null;
-if (apiKey && apiKey !== 'MY_GEMINI_API_KEY' && !apiKey.startsWith('MY_')) {
+// 2. Client Google GenAI trên server-side với cơ chế khởi tạo linh hoạt và fallback thông minh
+function getGenAIClient(): GoogleGenAI | null {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key || key === 'MY_GEMINI_API_KEY' || key.startsWith('MY_')) {
+    return null;
+  }
   try {
-    ai = new GoogleGenAI({
-      apiKey,
+    return new GoogleGenAI({
+      apiKey: key,
       httpOptions: {
         headers: {
           'User-Agent': 'aistudio-build'
@@ -71,16 +73,71 @@ if (apiKey && apiKey !== 'MY_GEMINI_API_KEY' && !apiKey.startsWith('MY_')) {
     });
   } catch (err: any) {
     console.warn('Failed to initialize GoogleGenAI client:', err.message);
+    return null;
   }
 }
 
-function withTimeout<T>(promise: Promise<T>, timeoutMs = 10000): Promise<T> {
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 12000): Promise<T> {
   return Promise.race([
     promise,
     new Promise<T>((_, reject) =>
-      setTimeout(() => reject(new Error('Gemini request timed out after ' + timeoutMs + 'ms')), timeoutMs)
+      setTimeout(() => reject(new Error('Yêu cầu AI quá thời gian chờ sau ' + timeoutMs + 'ms')), timeoutMs)
     )
   ]);
+}
+
+/**
+ * Hàm gọi Gemini AI với cơ chế dự phòng: Thử gemini-3.8-flash, nếu quá tải hoặc lỗi thì tự động chuyển sang gemini-3.1-flash-lite
+ */
+async function generateGroundedInterpretation({
+  contents,
+  systemInstruction,
+  primaryTimeoutMs = 7000,
+  fallbackTimeoutMs = 15000
+}: {
+  contents: string;
+  systemInstruction: string;
+  primaryTimeoutMs?: number;
+  fallbackTimeoutMs?: number;
+}): Promise<{ text: string; modelUsed: string } | null> {
+  const client = getGenAIClient();
+  if (!client) return null;
+
+  // 1. Thử model chính gemini-3.8-flash (với timeout ngắn nếu server Google đang quá tải)
+  try {
+    const response = await withTimeout(
+      client.models.generateContent({
+        model: 'gemini-3.8-flash',
+        contents,
+        config: { systemInstruction }
+      }),
+      primaryTimeoutMs
+    );
+    if (response.text && response.text.trim()) {
+      return { text: response.text.trim(), modelUsed: 'Gemini 3.8 Flash' };
+    }
+  } catch (primaryErr: any) {
+    console.warn('Primary model gemini-3.8-flash failed/timed out, switching to resilient gemini-3.1-flash-lite:', primaryErr.message || primaryErr);
+  }
+
+  // 2. Thử model dự phòng cực nhanh: gemini-3.1-flash-lite (< 1 giây)
+  try {
+    const response = await withTimeout(
+      client.models.generateContent({
+        model: 'gemini-3.1-flash-lite',
+        contents,
+        config: { systemInstruction }
+      }),
+      fallbackTimeoutMs
+    );
+    if (response.text && response.text.trim()) {
+      return { text: response.text.trim(), modelUsed: 'Gemini 3.1 Flash Lite (Resilient Fallback)' };
+    }
+  } catch (fallbackErr: any) {
+    console.warn('Fallback model gemini-3.1-flash-lite failed:', fallbackErr.message || fallbackErr);
+  }
+
+  return null;
 }
 
 // 3. API Lập lá số Tử Vi (có kiểm tra dữ liệu đầu vào nghiêm ngặt)
@@ -287,32 +344,21 @@ Hãy xây dựng bản luận giải chi tiết theo đúng cấu trúc chuẩn:
 7. **Giới hạn và tính nhân văn**: Khẳng định đây là tri thức văn hóa phương Đông để định hướng phát triển bản thân, không phải kết luận số mệnh khoa học định kiến.
 `;
 
-    // Gọi Gemini API nếu có key
-    if (ai) {
-      try {
-        const response = await withTimeout(
-          ai.models.generateContent({
-            model: 'gemini-3.8-flash',
-            contents: promptContext,
-            config: {
-              systemInstruction: 'Bạn là chuyên gia khảo chứng Tử Vi Đẩu Số học thuật, dựa trên nguyên bản Tử Vi Đẩu Số Toàn Thư của Hi Di Trần Đoàn do học giả Vũ Tài Lục biên dịch và chú giải. Bạn tuyệt đối không được bịa đặt vị trí sao, không bịa quy tắc hay số trang sách. Hãy đưa ra luận giải sâu sắc, trung thực, khoa học và minh bạch nguồn gốc.',
-            }
-          }),
-          9000
-        );
+    // Gọi Gemini API thông qua cơ chế dự phòng có căn cứ tri thức
+    const aiResult = await generateGroundedInterpretation({
+      contents: promptContext,
+      systemInstruction: 'Bạn là chuyên gia khảo chứng Tử Vi Đẩu Số học thuật, dựa trên nguyên bản Tử Vi Đẩu Số Toàn Thư của Hi Di Trần Đoàn do học giả Vũ Tài Lục biên dịch và chú giải. Bạn tuyệt đối không được bịa đặt vị trí sao, không bịa quy tắc hay số trang sách. Hãy đưa ra luận giải sâu sắc, trung thực, khoa học và minh bạch nguồn gốc.',
+      primaryTimeoutMs: 7000,
+      fallbackTimeoutMs: 15000
+    });
 
-        const text = response.text || '';
-        if (text) {
-          return res.json({
-            success: true,
-            interpretation: text,
-            matchedRules,
-            source: 'Gemini 3.8 Flash (Grounding via Knowledge Base)'
-          });
-        }
-      } catch (geminiError: any) {
-        console.warn('Gemini generateContent in /api/interpret failed, falling back to verified rules:', geminiError.message);
-      }
+    if (aiResult && aiResult.text) {
+      return res.json({
+        success: true,
+        interpretation: aiResult.text,
+        matchedRules,
+        source: `${aiResult.modelUsed} (Grounding via Knowledge Base)`
+      });
     }
 
     // Fallback nếu chưa có key: Tổng hợp trực tiếp từ Knowledge Base
@@ -382,9 +428,8 @@ app.post('/api/chat', async (req: Request, res: Response) => {
         (r.palaces_involved && r.palaces_involved.some(p => lower.includes(p.toLowerCase())));
     });
 
-    if (ai) {
-      const menhPalace = chart?.palaces?.[chart?.menhPalaceIndex];
-      const chatContext = `
+    const menhPalace = chart?.palaces?.[chart?.menhPalaceIndex];
+    const chatContext = `
 Bạn là Trợ lý AI Khảo chứng Tử Vi Đẩu Số, dựa vào sách "Tử Vi Đẩu Số Toàn Thư" (Hi Di Trần Đoàn - Vũ Tài Lục biên dịch).
 THÔNG TIN LÁ SỐ ĐANG MỞ:
 - Họ tên: ${chart?.profile?.name || 'Đương số'} (${chart?.profile?.gender || 'Nam'} - ${chart?.amDuongNamNu || ''})
@@ -401,23 +446,20 @@ QUY TẮC TRẢ LỜI NGHIÊM NGẶT:
 4. Luôn giữ thái độ nhã nhặn, khách quan và minh bạch.
 `;
 
-      try {
-        const response = await withTimeout(
-          ai.models.generateContent({
-            model: 'gemini-3.8-flash',
-            contents: `${chatContext}\n\nNgười dùng hỏi: ${cleanMessage}`
-          }),
-          9000
-        );
+    const aiResult = await generateGroundedInterpretation({
+      contents: `${chatContext}\n\nNgười dùng hỏi: ${cleanMessage}`,
+      systemInstruction: 'Bạn là Trợ lý AI Khảo chứng Tử Vi Đẩu Số, dựa vào sách Tử Vi Đẩu Số Toàn Thư (Hi Di Trần Đoàn - Vũ Tài Lục biên dịch). Tuyệt đối không bịa đặt sao không có trong lá số.',
+      primaryTimeoutMs: 7000,
+      fallbackTimeoutMs: 15000
+    });
 
-        return res.json({
-          success: true,
-          reply: response.text || '',
-          matchedRules
-        });
-      } catch (geminiError: any) {
-        console.warn('Gemini generateContent in /api/chat failed, falling back:', geminiError.message);
-      }
+    if (aiResult && aiResult.text) {
+      return res.json({
+        success: true,
+        reply: aiResult.text,
+        matchedRules,
+        source: aiResult.modelUsed
+      });
     }
 
     // Phản hồi nếu không có API key
@@ -546,7 +588,7 @@ DỮ LIỆU BÁT TỰ - TỨ TRỤ ĐÃ ĐƯỢC TÍNH TOÁN THEO THIÊN VĂN (T
 - CẢNH BÁO / LƯU Ý: ${chart.warnings.length > 0 ? chart.warnings.join('; ') : 'Không có bất thường ranh giới.'}
 `;
 
-    if (ai) {
+    if (getGenAIClient()) {
       const systemInstruction = `
 Bạn là Chuyên gia Khảo chứng Bát Tự – Tứ Trụ Cấp cao, nắm vững 4 pho đại thư tịch:
 1. 《渊海子平》 (Uyên Hải Tử Bình - Từ Đại Thăng)
@@ -574,23 +616,20 @@ CÁC QUY TẮC CỔ ĐIỂN CÓ THỂ THAM KHẢO TỪ KNOWLEDGE BASE:
 ${matchedRules.map(r => `* [${r.rule_id}][Nhóm ${r.category}] ${r.title}: ${r.rule_text} (Nguồn: ${r.source_book}, ${r.source_chapter})`).join('\n')}
 `;
 
-      try {
-        const response = await withTimeout(
-          ai.models.generateContent({
-            model: 'gemini-3.8-flash',
-            contents: `${systemInstruction}\n\n${userPrompt}`
-          }),
-          9000
-        );
+      const aiResult = await generateGroundedInterpretation({
+        contents: `${systemInstruction}\n\n${userPrompt}`,
+        systemInstruction,
+        primaryTimeoutMs: 7000,
+        fallbackTimeoutMs: 15000
+      });
 
+      if (aiResult && aiResult.text) {
         return res.json({
           success: true,
-          interpretation: response.text || '',
+          interpretation: aiResult.text,
           matchedRules,
-          source: 'Gemini 3.8 Flash (Grounded in Bazi Classical Canons)'
+          source: `${aiResult.modelUsed} (Grounded in Bazi Classical Canons)`
         });
-      } catch (geminiError: any) {
-        console.warn('Gemini Bazi interpret failed, falling back:', geminiError.message);
       }
     }
 
@@ -657,7 +696,7 @@ app.post('/api/bazi/chat', async (req: Request, res: Response) => {
     // Tra cứu quy tắc liên quan
     const matchedRules = findMatchingBaziRules(cleanMessage, chart);
 
-    if (ai) {
+    if (getGenAIClient()) {
       const dm = chart?.dayMaster;
       const chatContext = `
 Bạn là Chuyên gia Khảo chứng Bát Tự - Tứ Trụ, am hiểu sâu sắc 《Uyên Hải Tử Bình》, 《Tam Mệnh Thông Hội》, 《Địch Thiên Tủy》 và 《Cùng Thông Bảo Giám》.
@@ -677,22 +716,20 @@ QUY TẮC PHẢN HỒI:
 3. Luôn giữ thái độ nhã nhặn, tôn trọng khách quan và khuyến khích tự lực, không mê tín dị đoan.
 `;
 
-      try {
-        const response = await withTimeout(
-          ai.models.generateContent({
-            model: 'gemini-3.8-flash',
-            contents: `${chatContext}\n\nNgười dùng hỏi: ${cleanMessage}`
-          }),
-          9000
-        );
+      const aiResult = await generateGroundedInterpretation({
+        contents: `${chatContext}\n\nNgười dùng hỏi: ${cleanMessage}`,
+        systemInstruction: 'Bạn là Chuyên gia Khảo chứng Bát Tự – Tứ Trụ, dựa trên 4 pho đại thư tịch cổ điển.',
+        primaryTimeoutMs: 7000,
+        fallbackTimeoutMs: 15000
+      });
 
+      if (aiResult && aiResult.text) {
         return res.json({
           success: true,
-          reply: response.text || '',
-          matchedRules
+          reply: aiResult.text,
+          matchedRules,
+          source: aiResult.modelUsed
         });
-      } catch (geminiError: any) {
-        console.warn('Gemini generateContent in /api/bazi/chat failed, falling back:', geminiError.message);
       }
     }
 
@@ -817,6 +854,23 @@ app.post('/api/lunar/convert', (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({ error: error.message || 'Lỗi chuyển đổi lịch.' });
   }
+});
+
+// 17. Chặn 404 cho toàn bộ endpoint /api/* (Tuyệt đối không trả về HTML index.html cho các route API)
+app.all('/api/*', (req: Request, res: Response) => {
+  res.status(404).json({
+    error: `Cổng API ${req.method} ${req.path} không tồn tại trên máy chủ.`,
+    path: req.path,
+    method: req.method
+  });
+});
+
+// 18. Middleware xử lý lỗi nội bộ cho toàn bộ phân hệ /api/*
+app.use('/api', (err: any, _req: Request, res: Response, _next: NextFunction) => {
+  console.error('Unhandled API error:', err);
+  res.status(500).json({
+    error: err.message || 'Lỗi xử lý nội bộ máy chủ API.'
+  });
 });
 
 // Setup Vite dev server hoặc Serve static files trong Production
