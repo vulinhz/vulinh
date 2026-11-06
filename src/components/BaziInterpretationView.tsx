@@ -13,13 +13,29 @@ interface InterpretationResponse {
   source: string;
 }
 
+// Bộ nhớ đệm lưu trữ kết quả luận giải Bát Tự theo lá số và chủ đề (chống mất nội dung khi chuyển tab)
+const baziInterpretationCache = new Map<string, InterpretationResponse>();
+
 export const BaziInterpretationView: React.FC<BaziInterpretationViewProps> = ({ chart }) => {
   const [topic, setTopic] = useState<'TongQuan' | 'TinhCach' | 'CongDanh' | 'TaiChinh' | 'TinhDuyen' | 'DaiVan' | 'LuuNien'>('TongQuan');
   const [data, setData] = useState<InterpretationResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchInterpretation = async (selectedTopic: string) => {
+  const getCacheKey = (selectedTopic: string) => {
+    return `${chart.profile.name}_${chart.profile.solarDate}_${chart.profile.solarTime}_${selectedTopic}`;
+  };
+
+  const fetchInterpretation = async (selectedTopic: string, forceReload = false) => {
+    const cacheKey = getCacheKey(selectedTopic);
+
+    if (!forceReload && baziInterpretationCache.has(cacheKey)) {
+      setData(baziInterpretationCache.get(cacheKey)!);
+      setError(null);
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     try {
@@ -30,6 +46,7 @@ export const BaziInterpretationView: React.FC<BaziInterpretationViewProps> = ({ 
         timeoutMs: 35000
       });
 
+      baziInterpretationCache.set(cacheKey, json);
       setData(json);
     } catch (err: any) {
       console.error('Error fetching Bazi interpretation:', err);
@@ -69,7 +86,7 @@ export const BaziInterpretationView: React.FC<BaziInterpretationViewProps> = ({ 
           </div>
 
           <button
-            onClick={() => fetchInterpretation(topic)}
+            onClick={() => fetchInterpretation(topic, true)}
             disabled={isLoading}
             className="px-3.5 py-2 rounded-xl bg-slate-950 border border-amber-500/30 hover:border-amber-500 text-xs font-semibold text-amber-300 flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
           >

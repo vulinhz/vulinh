@@ -11,6 +11,9 @@ interface InterpretationViewProps {
   onNavigateToChat?: (initialQuestion?: string) => void;
 }
 
+// Bộ nhớ đệm lưu trữ kết quả luận giải theo lá số và chủ đề (chống mất nội dung khi chuyển tab)
+const tuviInterpretationCache = new Map<string, { interpretation: string; matchedRules: TuViRule[]; source: string }>();
+
 export const InterpretationView: React.FC<InterpretationViewProps> = ({
   chart,
   initialTopic = 'Tong_Quan',
@@ -26,7 +29,24 @@ export const InterpretationView: React.FC<InterpretationViewProps> = ({
   const [copied, setCopied] = useState<boolean>(false);
   const [selectedCitationCategory, setSelectedCitationCategory] = useState<string>('ALL');
 
-  const fetchInterpretation = async (topic: string, palace?: string) => {
+  const getCacheKey = (topic: string, palace?: string) => {
+    return `${chart.profile.name}_${chart.profile.solarDate}_${chart.profile.solarTime}_${topic}_${palace || 'none'}`;
+  };
+
+  const fetchInterpretation = async (topic: string, palace?: string, forceReload = false) => {
+    const cacheKey = getCacheKey(topic, palace);
+
+    // Nếu đã có trong bộ nhớ đệm và không yêu cầu tải lại, nạp tức thì
+    if (!forceReload && tuviInterpretationCache.has(cacheKey)) {
+      const cached = tuviInterpretationCache.get(cacheKey)!;
+      setInterpretation(cached.interpretation);
+      setMatchedRules(cached.matchedRules);
+      setSourceNote(cached.source);
+      setError(null);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -47,9 +67,20 @@ export const InterpretationView: React.FC<InterpretationViewProps> = ({
         timeoutMs: 35000
       });
 
-      setInterpretation(data.interpretation || '');
-      setMatchedRules(data.matchedRules || []);
-      setSourceNote(data.source || '');
+      const interText = data.interpretation || '';
+      const rules = data.matchedRules || [];
+      const src = data.source || '';
+
+      setInterpretation(interText);
+      setMatchedRules(rules);
+      setSourceNote(src);
+
+      // Lưu vào cache
+      tuviInterpretationCache.set(cacheKey, {
+        interpretation: interText,
+        matchedRules: rules,
+        source: src
+      });
     } catch (err: any) {
       console.error('Error fetching interpretation:', err);
       setError(err.message || 'Không thể lấy bản luận giải.');
