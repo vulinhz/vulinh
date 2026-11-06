@@ -1,0 +1,967 @@
+# DỰ ÁN: TÍCH HỢP XEM VÀ LUẬN GIẢI BÁT TỰ – TỨ TRỤ BẰNG AI
+
+## I. VAI TRÒ VÀ NHIỆM VỤ
+
+Bạn là đội ngũ phát triển phần mềm chuyên nghiệp, bao gồm:
+
+- Software Architect: thiết kế kiến trúc hệ thống.
+- Frontend Developer: phát triển giao diện website.
+- Backend Developer: phát triển API và nghiệp vụ.
+- Calendar Calculation Engineer: xây dựng bộ máy tính lịch Can Chi.
+- Bát Tự Research Specialist: hệ thống hóa kiến thức Bát Tự từ tài liệu có nguồn rõ ràng.
+- AI Engineer: xây dựng hệ thống luận giải bằng AI có căn cứ.
+- Database Engineer: thiết kế cơ sở dữ liệu.
+- QA Engineer: kiểm thử tính toán, giao diện và kết quả luận giải.
+
+Nhiệm vụ là **bổ sung đầy đủ chức năng lập lá số, xem và luận giải Bát Tự (Tứ Trụ) vào website Tử Vi AI hiện có**.
+
+Đây là việc mở rộng một dự án đang tồn tại, không phải xây dựng một website hoàn toàn mới.
+
+Trước khi chỉnh sửa, phải kiểm tra mã nguồn, cấu trúc thư mục, công nghệ và các chức năng hiện có.
+
+Không tự ý viết lại toàn bộ website nếu không cần thiết.
+
+---
+
+# II. MỤC TIÊU SẢN PHẨM
+
+Website sau khi hoàn thành phải có hai hệ thống chính:
+
+1. **Tử Vi Đẩu Số:** Giữ nguyên các chức năng hiện tại.
+2. **Bát Tự – Tứ Trụ:** Bổ sung chức năng lập lá số, phân tích và luận giải bằng AI.
+
+Người dùng có thể chọn hệ thống muốn sử dụng từ menu chính.
+
+Ví dụ:
+
+- Trang chủ.
+- Lập lá số Tử Vi.
+- Luận giải Tử Vi AI.
+- Lập lá số Bát Tự.
+- Luận giải Bát Tự AI.
+- So sánh Tử Vi và Bát Tự.
+- Thư viện kiến thức.
+- Lịch sử lá số.
+- Tài khoản cá nhân.
+
+Không bắt buộc triển khai tất cả các mục ngay trong phiên bản đầu tiên. Chỉ hiển thị những chức năng đã được triển khai thực sự.
+
+## Nguyên tắc quan trọng
+
+Hai hệ thống phải có bộ máy tính toán và quy tắc riêng.
+
+Không lấy kết quả Tử Vi để thay thế kết quả Bát Tự.
+
+Không dùng một thuật toán chung để tính cả hai hệ thống.
+
+Không tự động kết hợp quy tắc của Tử Vi, Bát Tự, Phong Thủy và các trường phái khác khi chưa xác định được nguồn và phương pháp áp dụng.
+
+---
+
+# III. NGHIÊN CỨU TÀI LIỆU BÁT TỰ
+
+## 1. Xây dựng cơ sở tri thức
+
+Trước khi lập trình phần luận giải, hãy nghiên cứu tài liệu Bát Tự từ các nguồn có thể kiểm tra được.
+
+Ưu tiên:
+
+- Sách cổ có thông tin xuất xứ và phiên bản rõ ràng.
+- Bản dịch có thông tin tác giả, người dịch và nhà xuất bản.
+- Danh mục thư viện quốc gia và thư viện đại học.
+- Công trình nghiên cứu có nguồn trích dẫn.
+- Các tài liệu chuyên môn có thể đối chiếu độc lập.
+- Tài liệu kỹ thuật chính thức về lịch pháp và các thư viện tính toán lịch.
+
+Có thể khảo sát những tác phẩm thường được nghiên cứu trong truyền thống Tứ Trụ như 《渊海子平》, 《三命通会》, 《滴天髓》 và 《穷通宝鉴》.
+
+Tuy nhiên, không được mặc nhiên coi mọi bản lưu hành trên Internet là bản gốc hoặc bản chính xác.
+
+Đối với mỗi tài liệu, cần ghi lại:
+
+- Tên tài liệu.
+- Tác giả hoặc người được truyền thống quy thuộc.
+- Người dịch hoặc chú giải.
+- Phiên bản.
+- Nhà xuất bản hoặc đơn vị lưu trữ.
+- Năm xuất bản nếu có.
+- URL hoặc mã định danh.
+- Nội dung được trích xuất.
+- Trạng thái xác minh.
+- Các dị bản hoặc điểm chưa rõ.
+
+Nếu không xác minh được nguồn, phải ghi rõ trạng thái chưa xác minh.
+
+Không tự tạo trích dẫn, tên tác giả, số trang hoặc URL.
+
+## 2. Phân loại kiến thức
+
+Chia kiến thức thành các nhóm:
+
+**Nhóm A – Lý thuyết nền tảng**
+
+- Thiên Can.
+- Địa Chi.
+- Ngũ hành.
+- Âm dương.
+- Can Chi.
+- Tứ Trụ.
+- Nhật Chủ.
+- Tàng Can.
+
+**Nhóm B – Quy tắc tính toán**
+
+- Xác định trụ năm.
+- Xác định trụ tháng.
+- Xác định trụ ngày.
+- Xác định trụ giờ.
+- Xác định các quan hệ giữa Can Chi.
+
+**Nhóm C – Phương pháp luận giải**
+
+- Nhật Chủ và sức mạnh Nhật Chủ.
+- Ngũ hành vượng, tướng, hưu, tù, tử nếu phương pháp được chọn sử dụng.
+- Thập Thần.
+- Thập Nhị Trường Sinh.
+- Quan hệ sinh khắc.
+- Hợp, xung, hình, hại, phá.
+- Dụng Thần và Hỷ Kỵ.
+- Đại Vận.
+- Lưu Niên.
+- Các phương pháp luận giải khác có tài liệu hỗ trợ.
+
+**Nhóm D – Trường phái và dị bản**
+
+Lưu lại những quy tắc khác nhau giữa các tài liệu.
+
+Không tự động trộn các trường phái thành một hệ thống duy nhất.
+
+**Nhóm E – Nội dung AI tổng hợp**
+
+Là nội dung do AI diễn giải từ dữ liệu lá số và các quy tắc đã truy xuất.
+
+Phải phân biệt rõ nội dung AI tổng hợp với nội dung trích nguyên văn tài liệu.
+
+## 3. Nguyên tắc kiểm chứng
+
+Cần phân biệt:
+
+- Nguồn đã được xác định.
+- Quy tắc đã được trích xuất.
+- Quy tắc đã được đối chiếu với nguồn khác.
+- Quy tắc đã được chuyên gia xem xét.
+- Quy tắc đã được kiểm thử về mặt tính toán.
+- Nhận định chưa có đủ căn cứ.
+
+Việc một quy tắc được ghi trong sách không có nghĩa là nó đã được chứng minh có khả năng dự đoán tương lai chính xác.
+
+Website phải trình bày Bát Tự như một hệ thống tri thức truyền thống, không tuyên bố rằng các dự đoán của hệ thống đã được khoa học xác nhận.
+
+---
+
+# IV. XÂY DỰNG BỘ MÁY TÍNH BÁT TỰ
+
+Đây là thành phần quan trọng nhất của phân hệ mới.
+
+Không sử dụng mô hình ngôn ngữ lớn để tự đoán Can Chi.
+
+Hãy xây dựng một module tính toán riêng, có đầu vào rõ ràng, kết quả xác định và bộ kiểm thử độc lập.
+
+## 1. Form nhập thông tin
+
+Tạo giao diện nhập thông tin sinh với các trường:
+
+- Họ tên hoặc biệt danh, không bắt buộc.
+- Ngày sinh.
+- Tháng sinh.
+- Năm sinh.
+- Giờ sinh.
+- Phút sinh.
+- Giới tính theo quy ước được phương pháp luận giải sử dụng.
+- Nơi sinh.
+- Múi giờ.
+- Loại lịch đầu vào.
+- Độ chính xác của giờ sinh.
+- Tùy chọn sử dụng giờ địa phương thực nếu phương pháp đã chọn yêu cầu.
+
+Phải giải thích rõ thông tin nào bắt buộc và thông tin nào tùy chọn.
+
+Nếu người dùng không biết chính xác giờ sinh, cần cho phép đánh dấu giờ sinh không chắc chắn.
+
+Không tự ý chọn giờ sinh thay cho người dùng.
+
+## 2. Xử lý lịch và múi giờ
+
+Phải xác định chính xác:
+
+- Ngày giờ dân sự.
+- Múi giờ tại địa điểm sinh.
+- Giờ sinh đã nhập là giờ địa phương hay giờ đã quy đổi.
+- Phương pháp chuyển đổi thời gian nếu cần.
+- Quy tắc xử lý thời điểm gần ranh giới ngày.
+- Quy tắc xử lý thời điểm gần ranh giới tiết khí.
+- Phương pháp xác định giờ địa phương thực nếu người dùng bật tùy chọn đó.
+
+Không mặc định rằng mọi hệ thống Bát Tự đều sử dụng cùng một quy ước về giờ sinh.
+
+Các quy ước khác nhau phải được cấu hình rõ ràng và ghi lại trong kết quả.
+
+## 3. Tính trụ năm
+
+Triển khai quy tắc xác định Thiên Can và Địa Chi của trụ năm theo phương pháp được lựa chọn.
+
+Đặc biệt, phải xử lý ranh giới năm theo quy ước của trường phái, chẳng hạn ranh giới Lập Xuân hoặc quy ước khác nếu được tài liệu hỗ trợ.
+
+Không mặc định sử dụng ngày mùng Một Tết âm lịch làm ranh giới trụ năm cho mọi phương pháp.
+
+Phải có test case tại các thời điểm sát ranh giới.
+
+## 4. Tính trụ tháng
+
+Xây dựng module xác định trụ tháng dựa trên quy tắc Can Chi và các mốc tiết khí tương ứng của phương pháp đã chọn.
+
+Không chỉ lấy tháng âm lịch thông thường để suy ra trụ tháng nếu phương pháp Bát Tự đang sử dụng yêu cầu dựa vào tiết khí.
+
+Phải sử dụng dữ liệu tiết khí hoặc thuật toán thiên văn phù hợp, có nguồn tham chiếu và kiểm thử.
+
+Xử lý chính xác các trường hợp sinh gần thời điểm chuyển tiết.
+
+## 5. Tính trụ ngày
+
+Xây dựng thuật toán tính Can Chi ngày độc lập.
+
+Yêu cầu:
+
+- Có phương pháp tính xác định.
+- Có dữ liệu tham chiếu để kiểm tra.
+- Kiểm thử các ngày liên tiếp.
+- Kiểm thử chuyển tháng và chuyển năm.
+- Kiểm thử ngày nhuận.
+- Kiểm thử thời điểm gần nửa đêm.
+- Ghi rõ quy ước xử lý giờ Tý và thời điểm đổi ngày.
+
+Không dùng AI để suy đoán trụ ngày từ ngày sinh.
+
+## 6. Tính trụ giờ
+
+Xây dựng thuật toán xác định Địa Chi giờ và Thiên Can giờ theo quy tắc tương ứng.
+
+Phải xử lý:
+
+- Giờ sinh.
+- Phút sinh.
+- Múi giờ.
+- Quy tắc xác định ngày áp dụng cho trụ giờ.
+- Ranh giới giữa hai giờ.
+- Các quy ước đặc biệt của từng trường phái.
+
+Không được bỏ qua phút sinh khi nó có thể ảnh hưởng đến việc xác định giờ.
+
+## 7. Kết quả Tứ Trụ
+
+Hiển thị bốn trụ:
+
+| Trụ | Thiên Can | Địa Chi |
+|---|---|---|
+| Trụ năm | Kết quả tính toán | Kết quả tính toán |
+| Trụ tháng | Kết quả tính toán | Kết quả tính toán |
+| Trụ ngày | Kết quả tính toán | Kết quả tính toán |
+| Trụ giờ | Kết quả tính toán | Kết quả tính toán |
+
+Dữ liệu trên chỉ là cấu trúc minh họa.
+
+Mỗi trụ phải được lấy từ bộ máy tính toán thật.
+
+Không tạo kết quả mẫu rồi hiển thị như lá số thật.
+
+Mỗi lá số phải lưu lại:
+
+- Thông tin đầu vào.
+- Quy ước tính toán.
+- Phiên bản thuật toán.
+- Kết quả bốn trụ.
+- Thời điểm lập lá số.
+- Các cảnh báo nếu có.
+
+---
+
+# V. XÂY DỰNG CÁC THÀNH PHẦN PHÂN TÍCH BÁT TỰ
+
+Sau khi bộ máy Tứ Trụ hoạt động và được kiểm thử, triển khai các thành phần phân tích.
+
+## 1. Nhật Chủ
+
+Xác định Nhật Chủ từ Thiên Can của trụ ngày.
+
+Hiển thị:
+
+- Thiên Can Nhật Chủ.
+- Thuộc tính âm dương.
+- Ngũ hành.
+- Các quan hệ với những Can Chi khác trong lá số.
+
+Không để AI tự chọn Nhật Chủ khác với dữ liệu tính toán.
+
+## 2. Ngũ hành
+
+Tạo bảng phân tích ngũ hành dựa trên dữ liệu lá số và phương pháp tính được lựa chọn.
+
+Nếu tính tỷ lệ ngũ hành, phải giải thích cách tính.
+
+Ví dụ, hệ thống có thể cho phép cấu hình:
+
+- Đếm trực tiếp các Can Chi.
+- Tính thêm Tàng Can.
+- Áp dụng trọng số theo quy tắc đã chọn.
+- Xem xét ảnh hưởng của nguyệt lệnh nếu phương pháp yêu cầu.
+
+Không trộn các cách tính thành một con số duy nhất mà không giải thích.
+
+Không khẳng định rằng biểu đồ ngũ hành đơn giản đủ để kết luận Nhật Chủ mạnh hay yếu.
+
+## 3. Tàng Can
+
+Hiển thị các Tàng Can trong từng Địa Chi theo bảng dữ liệu đã xác minh.
+
+Mỗi Địa Chi cần có danh sách Tàng Can theo quy tắc của hệ thống.
+
+Phải lưu nguồn và phiên bản dữ liệu.
+
+## 4. Thập Thần
+
+Xây dựng module xác định Thập Thần dựa trên quan hệ giữa Nhật Chủ và các Thiên Can liên quan.
+
+Các nhóm gồm:
+
+- Chính Quan.
+- Thất Sát.
+- Chính Ấn.
+- Thiên Ấn.
+- Tỷ Kiên.
+- Kiếp Tài.
+- Thực Thần.
+- Thương Quan.
+- Chính Tài.
+- Thiên Tài.
+
+Phải triển khai bằng quy tắc xác định rõ ràng, không để AI tự đoán nhãn.
+
+Cần kiểm thử tất cả quan hệ giữa các Thiên Can và Nhật Chủ.
+
+## 5. Quan hệ Can Chi
+
+Tạo module xử lý những quan hệ có trong hệ thống quy tắc đã chọn:
+
+- Sinh.
+- Khắc.
+- Hợp.
+- Xung.
+- Hình.
+- Hại.
+- Phá.
+- Tam hợp.
+- Tam hội.
+- Các quan hệ bổ sung nếu có tài liệu hỗ trợ.
+
+Mỗi quan hệ phải có quy tắc xác định rõ ràng.
+
+Không tự suy ra rằng một quan hệ luôn tạo ra kết quả tốt hoặc xấu trong mọi lá số.
+
+## 6. Phân tích Nhật Chủ mạnh hay yếu
+
+Tạo chức năng đánh giá Nhật Chủ dựa trên quy tắc của trường phái được lựa chọn.
+
+Các yếu tố có thể cần xem xét:
+
+- Nguyệt lệnh.
+- Mùa sinh.
+- Sinh và khắc giữa các ngũ hành.
+- Thiên Can.
+- Địa Chi.
+- Tàng Can.
+- Gốc rễ của Nhật Chủ.
+- Các quan hệ hợp hóa nếu phương pháp yêu cầu.
+
+Không chỉ đếm số lượng ngũ hành để kết luận.
+
+Phải giải thích tiêu chí và những dữ liệu đã được sử dụng.
+
+Nếu quy tắc chưa đủ rõ hoặc có nhiều trường phái khác nhau, hiển thị cảnh báo.
+
+## 7. Dụng Thần và Hỷ Kỵ
+
+Đây là phần cần đặc biệt thận trọng.
+
+Không xây dựng một công thức duy nhất rồi tuyên bố áp dụng chính xác cho tất cả trường phái.
+
+Hãy thiết kế module cho phép lựa chọn phương pháp xác định Dụng Thần.
+
+Mỗi phương pháp cần có:
+
+- Tên phương pháp.
+- Nguồn tài liệu.
+- Điều kiện áp dụng.
+- Các bước phân tích.
+- Quy tắc đánh giá Nhật Chủ.
+- Quy tắc lựa chọn Dụng Thần.
+- Quy tắc xác định Hỷ Thần và Kỵ Thần nếu phương pháp hỗ trợ.
+- Những trường hợp ngoại lệ.
+- Trạng thái xác minh.
+
+Nếu chưa có quy tắc đáng tin cậy, hệ thống phải ghi rõ:
+
+“Chưa đủ căn cứ để xác định Dụng Thần theo phương pháp đã chọn.”
+
+Không được để AI tự bịa Dụng Thần chỉ nhằm tạo ra một câu trả lời đầy đủ.
+
+## 8. Đại Vận
+
+Xây dựng chức năng tính Đại Vận theo quy tắc đã xác minh.
+
+Phải xác định:
+
+- Cách xác định chiều đi Đại Vận.
+- Cách xác định thời điểm bắt đầu Đại Vận.
+- Cách tính tuổi hoặc thời điểm chuyển vận.
+- Quy tắc liên quan đến giới tính nếu trường phái sử dụng.
+- Quy tắc liên quan đến Can Chi năm sinh.
+- Cách xử lý dữ liệu tiết khí.
+- Quy ước hiển thị tuổi và thời điểm chuyển vận.
+
+Các quy ước này phải có thể kiểm tra và cấu hình.
+
+Không tự động áp dụng một quy tắc duy nhất cho mọi trường phái.
+
+## 9. Lưu Niên
+
+Xây dựng chức năng hiển thị Can Chi của năm cần xem và phân tích quan hệ với Tứ Trụ, Đại Vận theo phương pháp được chọn.
+
+Người dùng có thể chọn năm muốn xem.
+
+Hệ thống phải hiển thị rõ năm đang được phân tích và quy ước lịch sử dụng.
+
+Không khẳng định các sự kiện tương lai sẽ chắc chắn xảy ra.
+
+---
+
+# VI. XÂY DỰNG AI LUẬN GIẢI BÁT TỰ
+
+## 1. Nguyên tắc cốt lõi
+
+AI không được tự tính lại Tứ Trụ bằng suy luận ngôn ngữ.
+
+AI phải nhận dữ liệu từ bộ máy tính toán đã được kiểm thử.
+
+AI chỉ được diễn giải dựa trên:
+
+- Bốn trụ đã tính toán.
+- Nhật Chủ.
+- Tàng Can.
+- Thập Thần.
+- Quan hệ Can Chi.
+- Kết quả phân tích ngũ hành.
+- Kết quả phân tích Nhật Chủ.
+- Dụng Thần và Hỷ Kỵ nếu đã có căn cứ.
+- Đại Vận và Lưu Niên nếu đã được tính.
+- Các quy tắc và tài liệu đã truy xuất.
+- Thông tin bổ sung do người dùng cung cấp.
+
+## 2. Quy trình luận giải
+
+Khi người dùng yêu cầu luận giải, hệ thống phải thực hiện:
+
+**Bước 1:** Lấy lá số Bát Tự từ cơ sở dữ liệu.
+
+**Bước 2:** Kiểm tra dữ liệu đầu vào và các quy ước tính toán.
+
+**Bước 3:** Xác định câu hỏi của người dùng.
+
+**Bước 4:** Truy xuất quy tắc có liên quan.
+
+**Bước 5:** Kiểm tra nguồn và trạng thái xác minh.
+
+**Bước 6:** Phân tích dữ liệu bằng các quy tắc đã xác định.
+
+**Bước 7:** Phát hiện các yếu tố mâu thuẫn hoặc trường hợp chưa đủ dữ liệu.
+
+**Bước 8:** Tạo câu trả lời bằng ngôn ngữ tự nhiên.
+
+**Bước 9:** Gắn nguồn tài liệu cho các nhận định cần căn cứ.
+
+**Bước 10:** Kiểm tra câu trả lời trước khi hiển thị.
+
+## 3. Các nội dung luận giải
+
+Tạo những chuyên mục sau nếu có đủ dữ liệu và quy tắc:
+
+### A. Tổng quan Bát Tự
+
+- Bốn trụ.
+- Nhật Chủ.
+- Ngũ hành.
+- Tàng Can.
+- Thập Thần.
+- Những quan hệ Can Chi nổi bật.
+- Các yếu tố chưa đủ căn cứ để kết luận.
+
+### B. Tính cách theo hệ thống truyền thống
+
+Giải thích các biểu tượng truyền thống liên quan đến Nhật Chủ, ngũ hành và Thập Thần.
+
+Không khẳng định có thể xác định chính xác tính cách của một người chỉ từ ngày giờ sinh.
+
+### C. Công việc và sự nghiệp
+
+Luận giải theo phương pháp truyền thống đã chọn.
+
+Kèm theo các giới hạn và gợi ý thực tế.
+
+Không tự kết luận người dùng chắc chắn thành công, thất nghiệp hoặc phải làm một nghề cụ thể.
+
+### D. Tài chính
+
+Phân tích theo hệ thống biểu tượng và các quy tắc đã xác minh.
+
+Không đưa ra lời khuyên đầu tư dựa trên dự đoán Bát Tự.
+
+### E. Tình cảm và quan hệ
+
+Luận giải theo phương pháp đã chọn.
+
+Không khẳng định chắc chắn thời điểm kết hôn, số lần kết hôn hoặc danh tính người bạn đời.
+
+### F. Đại Vận
+
+Hiển thị từng giai đoạn theo kết quả tính toán thực tế.
+
+Giải thích các quy tắc được sử dụng và cách diễn giải của trường phái.
+
+### G. Lưu Niên
+
+Cho phép chọn năm cần xem.
+
+Trình bày những yếu tố được hệ thống truyền thống xem là đáng chú ý, không biến chúng thành sự kiện tương lai chắc chắn.
+
+### H. Hỏi đáp Bát Tự AI
+
+Cho phép người dùng đặt câu hỏi về lá số.
+
+AI phải giữ đúng ngữ cảnh của lá số hiện tại, không nhầm dữ liệu giữa các người dùng hoặc giữa Bát Tự và Tử Vi.
+
+## 4. Cấu trúc câu trả lời
+
+Mỗi bản luận giải nên có:
+
+1. Câu hỏi đang được giải đáp.
+2. Dữ liệu Bát Tự liên quan.
+3. Quy tắc truyền thống được sử dụng.
+4. Nguồn tham khảo.
+5. Phân tích.
+6. Những cách diễn giải khác nếu các nguồn không thống nhất.
+7. Mức độ đầy đủ của căn cứ.
+8. Giới hạn của kết luận.
+9. Gợi ý thực tế phù hợp.
+
+Nếu không tìm thấy căn cứ, AI phải nói rõ:
+
+“Chưa tìm thấy đủ căn cứ trong cơ sở tri thức hiện có để đưa ra luận giải đáng tin cậy cho nội dung này.”
+
+Không tạo nguồn giả để làm câu trả lời có vẻ chuyên nghiệp.
+
+---
+
+# VII. THIẾT KẾ GIAO DIỆN BÁT TỰ
+
+## 1. Trang lập lá số Bát Tự
+
+Thiết kế giao diện đồng bộ với website Tử Vi hiện tại.
+
+Bao gồm:
+
+- Form nhập ngày giờ sinh.
+- Lựa chọn lịch.
+- Lựa chọn múi giờ.
+- Địa điểm sinh khi cần thiết.
+- Tùy chọn phương pháp xác định giờ sinh.
+- Nút “Lập lá số Bát Tự”.
+- Trạng thái xử lý.
+- Thông báo lỗi dữ liệu.
+- Giải thích quy ước tính toán.
+
+## 2. Trang hiển thị lá số
+
+Hiển thị bốn trụ theo bố cục trực quan.
+
+Ví dụ cấu trúc:
+
+| Thành phần | Trụ năm | Trụ tháng | Trụ ngày | Trụ giờ |
+|---|---|---|---|---|
+| Thiên Can | Dữ liệu thật | Dữ liệu thật | Dữ liệu thật | Dữ liệu thật |
+| Địa Chi | Dữ liệu thật | Dữ liệu thật | Dữ liệu thật | Dữ liệu thật |
+| Tàng Can | Dữ liệu thật | Dữ liệu thật | Dữ liệu thật | Dữ liệu thật |
+| Thập Thần | Theo quy tắc | Theo quy tắc | Theo quy tắc | Theo quy tắc |
+| Ngũ hành | Theo dữ liệu | Theo dữ liệu | Theo dữ liệu | Theo dữ liệu |
+
+Không sử dụng bảng dữ liệu minh họa làm kết quả của người dùng.
+
+Có thể dùng màu sắc để phân biệt ngũ hành, nhưng phải có chú giải bằng chữ để người dùng không phụ thuộc hoàn toàn vào màu.
+
+## 3. Các bảng phân tích
+
+Tạo những khu vực riêng:
+
+- Tổng quan bốn trụ.
+- Nhật Chủ.
+- Phân tích ngũ hành.
+- Tàng Can.
+- Thập Thần.
+- Quan hệ Can Chi.
+- Dụng Thần nếu đã xác định theo phương pháp được chọn.
+- Đại Vận.
+- Lưu Niên.
+- Luận giải AI.
+- Nguồn tham khảo.
+
+Mỗi khu vực phải có giao diện rõ ràng, không nhồi nhét quá nhiều nội dung vào một màn hình.
+
+## 4. Hỏi đáp AI
+
+Tạo khung chat riêng cho Bát Tự.
+
+Người dùng có thể:
+
+- Hỏi về Nhật Chủ.
+- Hỏi về ngũ hành.
+- Hỏi về Thập Thần.
+- Hỏi về quan hệ Can Chi.
+- Hỏi về Đại Vận.
+- Hỏi về Lưu Niên.
+- Yêu cầu giải thích một thuật ngữ.
+- Yêu cầu dẫn nguồn.
+- So sánh cách diễn giải giữa các tài liệu.
+
+Không cho phép chatbot sử dụng lá số của người khác nếu không có quyền truy cập.
+
+---
+
+# VIII. KHẮC PHỤC VÀ NGĂN NGỪA LỖI FONT CHỮ
+
+Website hiện tại đã có vấn đề về phông chữ và mất chữ trong 12 cung Tử Vi. Khi bổ sung Bát Tự, phải giải quyết triệt để những vấn đề này và không để lỗi xuất hiện ở phân hệ mới.
+
+## 1. Chuẩn hóa font
+
+Chọn font hỗ trợ Unicode và tiếng Việt tốt.
+
+Có thể cân nhắc Be Vietnam Pro, Inter hoặc Noto Sans.
+
+Dùng cấu hình font toàn cục phù hợp với framework thực tế.
+
+Không để mỗi component tự đặt font khác nhau nếu không có chủ đích thiết kế.
+
+## 2. Kiểm tra UTF-8
+
+Đảm bảo:
+
+- Mã nguồn sử dụng UTF-8.
+- API xử lý tiếng Việt chính xác.
+- Cơ sở dữ liệu lưu Unicode đúng.
+- Nội dung AI hiển thị đầy đủ dấu.
+- Các thuật ngữ như Tứ Trụ, Thiên Can, Địa Chi, Nhật Chủ, Ngũ hành, Dụng Thần không bị biến dạng.
+
+## 3. Không để mất chữ
+
+Kiểm tra:
+
+- Tên Can Chi.
+- Tên Thập Thần.
+- Tên các ngũ hành.
+- Tên thuật ngữ.
+- Tên Đại Vận.
+- Nội dung luận giải.
+- Nguồn tham khảo.
+
+Không cắt nội dung bằng CSS.
+
+Nếu nội dung dài, cho phép xuống dòng hoặc mở trang chi tiết.
+
+## 4. Responsive
+
+Trên điện thoại, ưu tiên cách hiển thị dễ đọc.
+
+Không thu nhỏ toàn bộ bảng Tứ Trụ đến mức không thể đọc.
+
+Có thể cho phép cuộn ngang hoặc chuyển thành các thẻ thông tin.
+
+Không làm hỏng giao diện 12 cung của phần Tử Vi hiện có.
+
+---
+
+# IX. CƠ SỞ DỮ LIỆU
+
+Tích hợp Bát Tự vào cơ sở dữ liệu hiện tại theo cách tách biệt nghiệp vụ nhưng có thể dùng chung tài khoản.
+
+Các bảng dự kiến:
+
+- `bazi_profiles`
+- `bazi_charts`
+- `bazi_pillars`
+- `bazi_hidden_stems`
+- `bazi_ten_gods`
+- `bazi_element_analysis`
+- `bazi_relationships`
+- `bazi_luck_cycles`
+- `bazi_annual_readings`
+- `bazi_interpretations`
+- `bazi_rules`
+- `bazi_rule_sources`
+- `bazi_rule_conflicts`
+- `bazi_test_cases`
+- `bazi_test_results`
+
+Danh mục này chỉ là thiết kế ban đầu.
+
+Trước khi tạo bảng mới, hãy kiểm tra cơ sở dữ liệu hiện có để tái sử dụng các bảng người dùng, tài liệu, nguồn tham khảo và lịch sử phù hợp.
+
+Không tạo hai hệ thống tài khoản độc lập nếu không có lý do nghiệp vụ.
+
+Không lưu trùng lặp thông tin không cần thiết.
+
+## Mỗi lá số Bát Tự cần lưu
+
+- ID lá số.
+- ID người dùng.
+- Dữ liệu sinh.
+- Múi giờ.
+- Quy ước tính toán.
+- Bốn trụ đã tính.
+- Phiên bản thuật toán.
+- Kết quả phân tích.
+- Thời điểm tạo.
+- Trạng thái kiểm tra dữ liệu.
+
+Phải có cơ chế kiểm soát quyền truy cập và xóa dữ liệu.
+
+---
+
+# X. API BÁT TỰ
+
+Thiết kế API theo cấu trúc dự án hiện có.
+
+Các endpoint tham khảo:
+
+- `POST /api/bazi/charts`: Lập lá số.
+- `GET /api/bazi/charts/{id}`: Xem lá số.
+- `GET /api/bazi/charts/{id}/analysis`: Xem phân tích.
+- `POST /api/bazi/interpretations`: Yêu cầu luận giải.
+- `POST /api/bazi/chat`: Hỏi đáp AI.
+- `GET /api/bazi/rules`: Tra cứu quy tắc.
+- `GET /api/bazi/rules/{id}`: Xem chi tiết quy tắc.
+- `GET /api/bazi/charts/{id}/luck-cycles`: Xem Đại Vận nếu đã triển khai.
+
+Đây là các endpoint gợi ý, không phải yêu cầu tạo trùng với API đã tồn tại.
+
+Phải định nghĩa request, response, kiểu dữ liệu, mã lỗi và cơ chế xác thực.
+
+Không để frontend tự tính ra kết quả quan trọng rồi gửi lên backend như thể đó là dữ liệu đã được xác minh.
+
+---
+
+# XI. KIỂM THỬ BẮT BUỘC
+
+## 1. Kiểm thử lịch Can Chi
+
+Tạo bộ dữ liệu tham chiếu có nguồn rõ ràng.
+
+Kiểm tra:
+
+- Các ngày thông thường.
+- Các ngày sát ranh giới năm.
+- Các ngày sát ranh giới tiết khí.
+- Các ngày sát nửa đêm.
+- Các trường hợp giờ Tý.
+- Các ngày nhuận.
+- Các múi giờ khác nhau.
+- Các trường hợp giờ sinh không chính xác.
+
+Không tuyên bố tính toán đúng tuyệt đối khi chưa kiểm thử.
+
+## 2. Kiểm thử các phép tính
+
+Kiểm tra riêng:
+
+- Trụ năm.
+- Trụ tháng.
+- Trụ ngày.
+- Trụ giờ.
+- Tàng Can.
+- Thập Thần.
+- Quan hệ Can Chi.
+- Phân tích Nhật Chủ.
+- Đại Vận.
+- Lưu Niên.
+
+Mỗi test case phải có dữ liệu đầu vào, quy tắc áp dụng và kết quả mong đợi.
+
+## 3. Kiểm thử AI
+
+Đánh giá:
+
+- AI có sử dụng đúng bốn trụ không.
+- AI có nhầm Nhật Chủ không.
+- AI có tự tạo Can Chi không.
+- AI có dùng sai Thập Thần không.
+- AI có bịa Dụng Thần không.
+- AI có trích dẫn nguồn không tồn tại không.
+- AI có nhận biết quy tắc mâu thuẫn không.
+- AI có thông báo thiếu căn cứ không.
+- AI có phân biệt Bát Tự với Tử Vi không.
+
+## 4. Kiểm thử hồi quy Tử Vi
+
+Sau khi tích hợp Bát Tự, phải kiểm tra lại:
+
+- Lập lá số Tử Vi.
+- Hiển thị đủ 12 cung.
+- Hiển thị tên sao.
+- Font tiếng Việt.
+- Chức năng luận giải Tử Vi.
+- Tài khoản.
+- Lưu và xem lại lá số.
+- Quyền truy cập dữ liệu.
+
+Không để chức năng mới làm hỏng chức năng cũ.
+
+---
+
+# XII. BẢO MẬT VÀ QUYỀN RIÊNG TƯ
+
+- Dùng chung cơ chế xác thực hiện có nếu phù hợp.
+- Phân quyền người dùng và quản trị viên.
+- Kiểm tra quyền sở hữu lá số.
+- Không để lộ API key.
+- Không ghi thông tin cá nhân không cần thiết vào log.
+- Giới hạn tần suất gọi AI.
+- Có cơ chế xóa lá số.
+- Thông báo cách dữ liệu được sử dụng.
+- Có chính sách lưu trữ và xóa dữ liệu.
+- Không gửi dữ liệu cá nhân sang dịch vụ ngoài nếu không cần thiết.
+
+---
+
+# XIII. KẾ HOẠCH TRIỂN KHAI
+
+Thực hiện theo từng giai đoạn.
+
+## Giai đoạn 1: Khảo sát website hiện tại
+
+- Đọc mã nguồn.
+- Xác định công nghệ.
+- Kiểm tra cơ sở dữ liệu.
+- Kiểm tra module Tử Vi.
+- Xác định phần có thể tái sử dụng.
+- Ghi lại các lỗi hiện có.
+
+## Giai đoạn 2: Nghiên cứu và chuẩn hóa Bát Tự
+
+- Thu thập nguồn.
+- Xác định quy tắc tính.
+- Chọn phương pháp áp dụng.
+- Xác định các điểm chưa rõ.
+- Tạo bộ dữ liệu tham chiếu.
+
+## Giai đoạn 3: Xây dựng bộ máy Tứ Trụ
+
+- Lập trình tính bốn trụ.
+- Viết test case.
+- Kiểm tra các ranh giới thời gian.
+- Ghi lại phiên bản thuật toán.
+
+## Giai đoạn 4: Xây dựng phân tích Bát Tự
+
+- Tàng Can.
+- Thập Thần.
+- Ngũ hành.
+- Quan hệ Can Chi.
+- Nhật Chủ.
+- Đại Vận và Lưu Niên nếu đã có quy tắc đủ rõ.
+
+## Giai đoạn 5: Tích hợp AI
+
+- Truy xuất tài liệu.
+- Xây dựng prompt.
+- Tạo luận giải có cấu trúc.
+- Gắn nguồn.
+- Kiểm tra mâu thuẫn.
+- Xây dựng bộ đánh giá chất lượng.
+
+## Giai đoạn 6: Hoàn thiện giao diện
+
+- Trang lập lá số.
+- Trang xem Tứ Trụ.
+- Trang phân tích.
+- Chatbot Bát Tự.
+- Lịch sử lá số.
+- Trang quản trị tri thức.
+
+## Giai đoạn 7: Kiểm thử và triển khai
+
+- Kiểm thử tính toán.
+- Kiểm thử AI.
+- Kiểm thử giao diện.
+- Kiểm thử bảo mật.
+- Kiểm thử hồi quy Tử Vi.
+- Hoàn thiện hướng dẫn triển khai.
+
+---
+
+# XIV. YÊU CẦU VỀ CÁCH LÀM VIỆC CỦA AI LẬP TRÌNH
+
+Khi nhận prompt này:
+
+1. Đọc mã nguồn website hiện tại trước khi chỉnh sửa.
+2. Xác định framework và cơ sở dữ liệu đang sử dụng.
+3. Lập danh sách chức năng hiện có.
+4. Đề xuất kiến trúc tích hợp Bát Tự.
+5. Xác định các quy tắc cần kiểm chứng.
+6. Tạo module Bát Tự tách biệt.
+7. Triển khai theo từng giai đoạn.
+8. Chạy kiểm thử sau mỗi giai đoạn.
+9. Sửa lỗi phát hiện được.
+10. Kiểm tra lại toàn bộ chức năng Tử Vi.
+11. Cập nhật tài liệu.
+12. Báo cáo các file đã tạo và sửa.
+
+Không được dừng ở việc đưa ra một kế hoạch chung chung.
+
+Nếu có quyền truy cập dự án, hãy trực tiếp tạo và chỉnh sửa mã nguồn.
+
+Nếu không có quyền truy cập, hãy cung cấp mã nguồn và hướng dẫn triển khai cụ thể.
+
+Nếu gặp quy tắc Bát Tự chưa xác minh, hãy đánh dấu cần nghiên cứu thay vì tự đoán.
+
+Nếu thiếu một thông tin kỹ thuật không quan trọng, hãy chọn phương án mặc định hợp lý, ghi lại quyết định và tiếp tục triển khai.
+
+Không tự ý phá vỡ giao diện, dữ liệu hoặc chức năng hiện có.
+
+---
+
+# XV. NHIỆM VỤ ĐẦU TIÊN
+
+Bắt đầu bằng việc kiểm tra website hiện tại.
+
+Sau đó:
+
+1. Báo cáo công nghệ đang sử dụng.
+2. Liệt kê các module có thể tái sử dụng.
+3. Đề xuất cấu trúc module Bát Tự.
+4. Thiết kế cơ sở dữ liệu.
+5. Xác định phương pháp tính Tứ Trụ.
+6. Lập danh sách nguồn cần xác minh.
+7. Xây dựng bộ kiểm thử ban đầu.
+8. Triển khai chức năng lập Tứ Trụ trước.
+9. Kiểm thử kết quả tính toán.
+10. Tiếp tục triển khai các chức năng luận giải.
+
+**Ưu tiên cao nhất là tính đúng đắn của bốn trụ, khả năng kiểm tra nguồn và sự ổn định của website. Không ưu tiên tạo giao diện đẹp trước khi bộ máy tính toán hoạt động đúng.**
+
+Hãy bắt đầu kiểm tra dự án và triển khai từng chức năng có thể kiểm thử thực tế.

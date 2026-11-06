@@ -1,0 +1,16 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Large binary files & reference PDFs (exceeding GitHub 100MB file limit)
+*.pdf
+public/assets/aistudio/*.pdf
+*.tar.gz
+*.zip
+backup*/
+.dev.pid

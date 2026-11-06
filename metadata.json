@@ -1,0 +1,8 @@
+{
+  "name": "Remix Tử Vi Đẩu Số AI - Luận Giải Chuẩn Khảo Chứng",
+  "description": "Website lập lá số và luận giải Tử Vi Đẩu Số bằng AI có căn cứ từ Tử Vi Đẩu Số Toàn Thư (Hi Di Trần Đoàn - Vũ Tài Lục), đối chiếu dị bản và minh bạch trích dẫn thư tịch.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

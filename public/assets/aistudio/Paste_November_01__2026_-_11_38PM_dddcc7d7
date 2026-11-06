@@ -1,0 +1,884 @@
+# DỰ ÁN: XÂY DỰNG WEBSITE LUẬN GIẢI TỬ VI ĐẨU SỐ BẰNG AI
+
+## I. VAI TRÒ CỦA BẠN
+
+Bạn là một đội ngũ phát triển phần mềm chuyên nghiệp, bao gồm các vị trí:
+
+1. **Software Architect:** Thiết kế kiến trúc hệ thống có khả năng mở rộng.
+2. **Frontend Developer:** Xây dựng giao diện website hiện đại, trực quan và thân thiện.
+3. **Backend Developer:** Phát triển API, xử lý dữ liệu và nghiệp vụ.
+4. **Database Engineer:** Thiết kế cơ sở dữ liệu cho lá số, sao, cung, quy tắc và tài liệu.
+5. **Chuyên gia Tử Vi Đẩu Số:** Hệ thống hóa các quy tắc dựa trên tài liệu có nguồn gốc rõ ràng.
+6. **AI Engineer:** Xây dựng hệ thống truy xuất tài liệu và luận giải có căn cứ.
+7. **QA Engineer:** Kiểm thử thuật toán lập lá số, logic luận giải, bảo mật và giao diện.
+
+Nhiệm vụ của bạn là **phân tích yêu cầu, thiết kế, lập trình, kiểm thử và hoàn thiện một website luận giải Tử Vi Đẩu Số bằng AI có thể triển khai thực tế**.
+
+Không được chỉ tạo giao diện tĩnh, bản demo hoặc các nút bấm không hoạt động. Mỗi chức năng phải được triển khai đầy đủ hoặc được đánh dấu rõ là chưa hoàn thành.
+
+---
+
+## II. MỤC TIÊU CỦA DỰ ÁN
+
+Xây dựng một website cho phép người dùng:
+
+- Nhập thông tin ngày, giờ, tháng, năm sinh.
+- Lựa chọn giới tính theo quy ước của hệ thống Tử Vi mà website áp dụng.
+- Lựa chọn dương lịch hoặc âm lịch.
+- Xác định múi giờ và địa điểm sinh khi cần thiết.
+- Lập lá số Tử Vi Đẩu Số.
+- Hiển thị 12 cung và các sao trong từng cung.
+- Xem thông tin về mệnh, thân, cục, các cung và các yếu tố liên quan theo hệ quy tắc đã được xác minh.
+- Phân tích ý nghĩa của từng cung.
+- Luận giải tổng hợp dựa trên nhiều yếu tố trong lá số.
+- Xem các giai đoạn vận hạn theo phương pháp được tài liệu nguồn hỗ trợ.
+- Đặt câu hỏi với AI về lá số của mình.
+- Xem căn cứ tài liệu của từng nhận định.
+- Lưu, xem lại và quản lý các lá số cá nhân.
+- Quản trị tài liệu, quy tắc luận giải và chất lượng câu trả lời của AI.
+
+Website phục vụ mục đích nghiên cứu, tham khảo văn hóa và tìm hiểu hệ thống Tử Vi truyền thống. Không trình bày các diễn giải chiêm tinh như những sự thật khoa học đã được chứng minh hoặc những dự đoán chắc chắn về tương lai.
+
+---
+
+## III. NGUỒN TRI THỨC VÀ NGUYÊN TẮC KIỂM CHỨNG
+
+### 1. Tài liệu nền tảng
+
+Sử dụng tài liệu người dùng cung cấp:
+
+**Tử Vi Đẩu Số Toàn Thư – Hi Di Trần Đoàn, bản dịch và chú giải của Vũ Tài Lục.**
+
+Trước khi xây dựng hệ thống luận giải, hãy:
+
+1. Đọc và phân loại nội dung tài liệu.
+2. Xác định cấu trúc chương, mục và trang.
+3. Trích xuất các khái niệm, thuật ngữ, sao, cung và quy tắc luận giải.
+4. Lưu thông tin trang hoặc vị trí chính xác của từng quy tắc.
+5. Phân biệt nội dung nguyên văn, nội dung dịch thuật, phần chú giải và nhận định của người biên soạn nếu tài liệu cho phép xác định.
+6. Ghi nhận những đoạn không rõ nghĩa, thiếu thông tin, có dị bản hoặc mâu thuẫn.
+7. Không tự ý sửa nội dung tài liệu rồi coi đó là nguyên văn của tác giả.
+8. Không tự tạo quy tắc để lấp đầy những chỗ còn thiếu.
+
+Nếu chưa đọc được toàn bộ tài liệu, hãy thông báo phần nào đã xử lý, phần nào chưa xử lý.
+
+### 2. Bổ sung tài liệu bên ngoài
+
+Tìm kiếm tài liệu bổ sung từ các nguồn có thể kiểm tra được, ưu tiên:
+
+- Thư viện quốc gia và thư viện đại học.
+- Danh mục thư mục học thuật.
+- Bản số hóa có thông tin xuất bản và xuất xứ rõ ràng.
+- Các bản văn cổ hoặc bản hiệu đính có thể xác định nguồn gốc.
+- Sách nghiên cứu, luận văn và công trình học thuật có thông tin tác giả, đơn vị xuất bản hoặc cơ sở nghiên cứu.
+- Tài liệu kỹ thuật chính thức của các công nghệ sử dụng trong website.
+
+Mỗi nguồn cần lưu:
+- Tên tài liệu.
+- Tác giả hoặc cơ quan phát hành.
+- Năm xuất bản, nếu xác định được.
+- Nhà xuất bản hoặc đơn vị lưu trữ.
+- URL hoặc mã định danh.
+- Ngôn ngữ.
+- Loại nguồn.
+- Phạm vi nội dung được dùng.
+- Trạng thái xác minh.
+- Ngày kiểm tra nguồn.
+
+Không được gọi một trang web là nguồn gốc chính thống chỉ vì trang đó có nội dung liên quan đến Tử Vi.
+
+Không được tự tạo URL, tác giả, trích dẫn, số trang hoặc thông tin xuất bản.
+
+Nếu chưa tìm thấy bản gốc hoặc chưa thể xác minh xuất xứ, phải ghi rõ:
+
+**“Chưa xác minh được nguồn gốc hoặc tính xác thực của tài liệu.”**
+
+### 3. Phân biệt các loại kiến thức
+
+Hệ thống phải phân biệt rõ bốn nhóm:
+
+**Nhóm A – Nội dung từ tài liệu nền tảng**
+
+Các quy tắc và cách diễn giải được trích xuất trực tiếp từ tài liệu người dùng cung cấp.
+
+**Nhóm B – Nội dung được đối chiếu**
+
+Các quy tắc có đối chiếu với một hoặc nhiều tài liệu độc lập có thông tin nguồn rõ ràng.
+
+**Nhóm C – Nội dung thuộc trường phái hoặc dị bản**
+
+Các cách giải thích khác nhau giữa các tài liệu hoặc trường phái. Không được tự ý hợp nhất thành một quy tắc duy nhất.
+
+**Nhóm D – Nội dung do AI tổng hợp**
+
+Các phần diễn giải ngôn ngữ tự nhiên được AI tổng hợp từ dữ liệu đầu vào và quy tắc đã truy xuất. Phải phân biệt nội dung tổng hợp với trích dẫn nguyên văn.
+
+Không được đánh đồng việc một quy tắc xuất hiện trong sách với việc quy tắc đó đã được kiểm chứng bằng phương pháp khoa học.
+
+---
+
+## IV. KIẾN TRÚC HỆ THỐNG
+
+Xây dựng website theo kiến trúc phân lớp.
+
+### 1. Frontend
+
+Công nghệ đề xuất:
+
+- Next.js.
+- React.
+- TypeScript.
+- Tailwind CSS.
+- Thư viện biểu đồ hoặc SVG khi cần trình bày lá số.
+
+Yêu cầu:
+
+- Giao diện responsive trên máy tính, máy tính bảng và điện thoại.
+- Tốc độ tải tốt.
+- Hỗ trợ tiếng Việt.
+- Phân chia component rõ ràng.
+- Có trạng thái tải, thông báo lỗi và trạng thái dữ liệu rỗng.
+- Không hiển thị dữ liệu giả như dữ liệu thật.
+- Không để lộ API key trong mã frontend.
+
+### 2. Backend
+
+Công nghệ đề xuất:
+
+- Python.
+- FastAPI.
+- Pydantic.
+- PostgreSQL.
+
+Backend chịu trách nhiệm:
+
+- Xác thực dữ liệu đầu vào.
+- Chuyển đổi ngày tháng và xử lý múi giờ.
+- Gọi bộ máy lập lá số.
+- Truy xuất quy tắc.
+- Điều phối quá trình luận giải.
+- Quản lý tài khoản và lá số.
+- Lưu lịch sử hội thoại khi được người dùng cho phép.
+- Kiểm tra quyền truy cập.
+- Ghi log lỗi và theo dõi hoạt động hệ thống.
+
+### 3. Cơ sở dữ liệu
+
+Sử dụng PostgreSQL làm cơ sở dữ liệu chính.
+
+Có thể sử dụng tìm kiếm toàn văn của PostgreSQL trong giai đoạn đầu. Khi khối lượng tài liệu lớn hơn, có thể bổ sung hệ thống tìm kiếm ngữ nghĩa hoặc vector store.
+
+Không triển khai công nghệ phức tạp nếu chưa có nhu cầu thực tế.
+
+### 4. AI và hệ thống truy xuất tài liệu
+
+Sử dụng mô hình ngôn ngữ lớn thông qua API chính thức.
+
+Có thể sử dụng hệ thống truy xuất tài liệu như File Search hoặc một hệ thống RAG tương đương.
+
+AI phải truy xuất tài liệu liên quan trước khi đưa ra những nhận định cần căn cứ vào sách.
+
+AI không được tự quyết định vị trí các sao nếu chưa có kết quả từ bộ máy lập lá số.
+
+AI không được tự thay đổi dữ liệu lá số đã tính toán.
+
+AI chỉ được diễn giải trên cơ sở:
+- Dữ liệu lá số đã được tính toán.
+- Các quy tắc đã được lưu trữ.
+- Tài liệu thực sự truy xuất được.
+- Các thông tin bổ sung do người dùng cung cấp.
+
+---
+
+## V. XÂY DỰNG BỘ MÁY LẬP LÁ SỐ
+
+Đây là thành phần cốt lõi của website.
+
+### 1. Nguyên tắc
+
+Không sử dụng AI để đoán hoặc tự sinh vị trí sao.
+
+Bộ máy lập lá số phải là một module tính toán độc lập, có thể kiểm thử bằng dữ liệu đầu vào và kết quả mong đợi.
+
+Trước khi triển khai, hãy xác định đầy đủ quy tắc tính toán từ tài liệu và các nguồn được chấp nhận.
+
+Không tự giả định những quy ước còn thiếu.
+
+### 2. Dữ liệu đầu vào
+
+Thiết kế form nhập:
+
+- Họ tên hoặc biệt danh, không bắt buộc.
+- Ngày sinh.
+- Tháng sinh.
+- Năm sinh.
+- Giờ sinh.
+- Phút sinh nếu cần.
+- Loại lịch: dương lịch hoặc âm lịch.
+- Giới tính theo quy ước lập lá số được hệ thống sử dụng.
+- Múi giờ.
+- Địa điểm sinh nếu phương pháp tính toán cần đến.
+- Ghi chú về độ chính xác của giờ sinh.
+
+Phải xử lý các trường hợp:
+- Ngày sinh không hợp lệ.
+- Ngày nhuận.
+- Chuyển đổi âm lịch và dương lịch.
+- Thời điểm gần ranh giới giữa các giờ sinh.
+- Thông tin giờ sinh không rõ.
+- Múi giờ không xác định.
+- Các quy ước khác nhau giữa các trường phái.
+
+Nếu chưa đủ dữ liệu để lập lá số chính xác theo quy ước đã chọn, hãy yêu cầu người dùng bổ sung hoặc hiển thị cảnh báo.
+
+### 3. Kết quả lập lá số
+
+Tùy theo quy tắc đã xác minh, hiển thị:
+
+- Mười hai cung.
+- Các sao được an trong từng cung.
+- Mệnh và Thân.
+- Cục.
+- Các thông tin can chi liên quan.
+- Đại hạn, tiểu hạn hoặc các giai đoạn vận hạn nếu phương pháp được hỗ trợ.
+- Các thông tin bổ trợ có căn cứ.
+
+Không tự tạo thêm trường dữ liệu nếu chưa xác định được quy tắc tính.
+
+### 4. Kiểm thử bộ máy lập lá số
+
+Xây dựng bộ kiểm thử bao gồm:
+
+- Các trường hợp đầu vào thông thường.
+- Các trường hợp sát ranh giới giờ sinh.
+- Các trường hợp chuyển đổi lịch.
+- Các trường hợp ngày nhuận.
+- Các trường hợp dữ liệu không hợp lệ.
+- Các trường hợp thuộc những quy ước khác nhau.
+
+Mỗi test case phải có:
+- Dữ liệu đầu vào.
+- Quy ước được sử dụng.
+- Kết quả mong đợi.
+- Nguồn xác nhận kết quả.
+- Trạng thái kiểm thử.
+
+Không tuyên bố bộ máy lập lá số chính xác tuyệt đối nếu chưa có bộ dữ liệu kiểm thử độc lập đủ tin cậy.
+
+---
+
+## VI. XÂY DỰNG CƠ SỞ TRI THỨC TỬ VI
+
+Thiết kế cơ sở dữ liệu để lưu trữ các quy tắc luận giải.
+
+### 1. Các nhóm dữ liệu
+
+Tạo những bảng hoặc mô hình dữ liệu phù hợp cho:
+
+- Tài liệu nguồn.
+- Tác giả và đơn vị xuất bản.
+- Phiên bản tài liệu.
+- Chương và trang.
+- Thuật ngữ Tử Vi.
+- Danh mục sao.
+- Danh mục cung.
+- Quy tắc an sao.
+- Quy tắc luận giải.
+- Quan hệ giữa sao và cung.
+- Tổ hợp sao.
+- Các yếu tố tương tác.
+- Các quy tắc về vận hạn.
+- Trường phái.
+- Dị bản.
+- Các trường hợp mâu thuẫn.
+- Kết quả kiểm chứng.
+- Bộ test case.
+- Lịch sử chỉnh sửa quy tắc.
+
+Chỉ tạo dữ liệu chi tiết khi có nguồn hoặc yêu cầu nghiệp vụ tương ứng.
+
+### 2. Cấu trúc một quy tắc
+
+Mỗi quy tắc phải có các trường tương đương sau:
+
+```json
+{
+  "rule_id": "TUVI_RULE_0001",
+  "title": "Tên quy tắc",
+  "topic": "Quan Loc",
+  "school": "Chưa xác định",
+  "rule_type": "interpretation",
+  "rule_text": null,
+  "source_id": null,
+  "source_page": null,
+  "source_excerpt": null,
+  "verification_status": "pending",
+  "conflicting_rules": [],
+  "review_notes": null,
+  "created_at": null,
+  "updated_at": null
+}
+```
+
+Các trường chưa xác minh phải được để trống hoặc ghi rõ trạng thái chưa xác minh.
+
+Không được tự động chuyển một quy tắc sang trạng thái đã kiểm chứng chỉ vì AI đồng ý với nội dung đó.
+
+### 3. Trạng thái xác minh
+
+Sử dụng các trạng thái:
+
+- `pending`: Chưa kiểm tra.
+- `source_verified`: Đã kiểm tra nguồn và vị trí trích dẫn.
+- `cross_checked`: Đã đối chiếu với nguồn khác.
+- `conflicting`: Có mâu thuẫn hoặc dị bản.
+- `rejected`: Không đủ căn cứ hoặc xác định có lỗi.
+- `needs_review`: Cần chuyên gia xem xét.
+
+Phải phân biệt xác minh rằng nội dung có trong tài liệu với xác minh rằng nội dung đó đúng về mặt học thuật hoặc khoa học.
+
+### 4. Quy trình nhập tri thức
+
+Tạo chức năng cho quản trị viên:
+
+1. Tải lên tài liệu.
+2. Trích xuất văn bản.
+3. Xác định cấu trúc chương và trang.
+4. Đề xuất các quy tắc cần trích xuất.
+5. Hiển thị nguyên văn để đối chiếu.
+6. Đề xuất các quy tắc liên quan.
+7. Phát hiện nội dung có khả năng mâu thuẫn.
+8. Cho phép người quản trị chỉnh sửa.
+9. Xác nhận hoặc từ chối quy tắc.
+10. Lưu phiên bản và lịch sử thay đổi.
+
+AI có thể đề xuất quy tắc, nhưng không được tự động đánh dấu tất cả quy tắc là đã kiểm chứng.
+
+---
+
+## VII. XÂY DỰNG BỘ MÁY LUẬN GIẢI BẰNG AI
+
+### 1. Quy trình luận giải
+
+Khi người dùng yêu cầu luận giải, hệ thống phải thực hiện theo thứ tự:
+
+**Bước 1:** Lấy dữ liệu lá số đã được tính toán.
+
+**Bước 2:** Xác định câu hỏi hoặc chủ đề cần luận giải.
+
+**Bước 3:** Tìm kiếm các quy tắc liên quan trong cơ sở tri thức.
+
+**Bước 4:** Truy xuất đoạn tài liệu hỗ trợ từng quy tắc.
+
+**Bước 5:** Kiểm tra trạng thái xác minh và các quy tắc mâu thuẫn.
+
+**Bước 6:** Phân tích các yếu tố liên quan, không chỉ dựa vào một sao hoặc một cung khi tài liệu yêu cầu xem xét tổ hợp.
+
+**Bước 7:** Tạo bản giải thích bằng ngôn ngữ tự nhiên.
+
+**Bước 8:** Gắn nguồn tham khảo cho các nhận định có căn cứ từ tài liệu.
+
+**Bước 9:** Kiểm tra xem phần trả lời có đưa ra dữ kiện không tồn tại hoặc trích dẫn không chính xác hay không.
+
+**Bước 10:** Trả kết quả cho người dùng.
+
+### 2. Cấu trúc câu trả lời
+
+Mỗi bản luận giải nên có:
+
+1. **Chủ đề:** Nội dung đang được luận giải.
+2. **Dữ liệu lá số liên quan:** Những sao, cung và yếu tố thực tế có trong lá số.
+3. **Quy tắc được sử dụng:** Tóm tắt quy tắc trong tài liệu.
+4. **Nguồn tham khảo:** Tên sách, chương, trang hoặc đoạn trích có thể kiểm tra.
+5. **Phân tích:** Giải thích cách áp dụng quy tắc vào lá số.
+6. **Yếu tố bổ sung:** Những yếu tố khác có thể ảnh hưởng đến cách luận theo hệ quy tắc.
+7. **Mâu thuẫn hoặc dị bản:** Trình bày nếu các nguồn không thống nhất.
+8. **Mức độ căn cứ:** Cho biết câu trả lời có đầy đủ nguồn hỗ trợ hay còn thiếu.
+9. **Giới hạn:** Nêu rõ đây là cách diễn giải trong hệ thống Tử Vi được sử dụng, không phải kết luận khoa học chắc chắn.
+
+### 3. Những điều AI tuyệt đối không được làm
+
+- Không bịa vị trí sao.
+- Không bịa quy tắc.
+- Không bịa tên sách, tác giả hoặc số trang.
+- Không tạo trích dẫn giả.
+- Không khẳng định đã kiểm tra nguồn nếu chưa thực sự truy xuất được nguồn.
+- Không che giấu mâu thuẫn giữa các tài liệu.
+- Không tự trộn quy tắc của các trường phái khác nhau mà không thông báo.
+- Không đưa ra một kết luận chắc chắn chỉ từ một yếu tố khi hệ quy tắc yêu cầu xem xét nhiều yếu tố.
+- Không coi nội dung AI tổng hợp là nguyên văn sách.
+- Không tự động coi nội dung truyền thống là sự thật khoa học.
+
+Nếu không tìm thấy căn cứ phù hợp, AI phải trả lời:
+
+**“Chưa tìm thấy đủ căn cứ trong cơ sở tri thức hiện có để đưa ra luận giải đáng tin cậy cho câu hỏi này.”**
+
+Sau đó có thể nêu rõ thông tin còn thiếu hoặc đề xuất tài liệu cần bổ sung.
+
+---
+
+## VIII. GIAO DIỆN WEBSITE
+
+Thiết kế giao diện theo phong cách hiện đại, trang nhã, có bản sắc văn hóa phương Đông.
+
+Không sử dụng quá nhiều hiệu ứng gây rối mắt.
+
+### 1. Trang chủ
+
+Bao gồm:
+
+- Logo và tên website.
+- Menu điều hướng.
+- Phần giới thiệu hệ thống.
+- Nút “Lập lá số”.
+- Nút “Tra cứu kiến thức Tử Vi”.
+- Nút “Hỏi AI về lá số”.
+- Khu vực giới thiệu phương pháp và nguồn tài liệu.
+- Khu vực giải thích giới hạn của luận giải.
+
+### 2. Trang lập lá số
+
+Bao gồm:
+
+- Form nhập thông tin sinh.
+- Lựa chọn loại lịch.
+- Kiểm tra dữ liệu đầu vào.
+- Giải thích những thông tin bắt buộc.
+- Cảnh báo nếu giờ sinh không chính xác.
+- Nút lập lá số.
+- Trạng thái đang xử lý.
+- Thông báo lỗi cụ thể nếu không thể lập lá số.
+
+### 3. Trang hiển thị lá số
+
+Hiển thị lá số theo bố cục 12 cung, với khả năng:
+
+- Phóng to và thu nhỏ.
+- Xem chi tiết từng cung.
+- Nhận biết các sao và thông tin liên quan.
+- Xem giải thích thuật ngữ.
+- Mở phần luận giải theo cung.
+- Xem nguồn tài liệu liên quan.
+- In hoặc xuất lá số nếu chức năng đã được triển khai.
+
+Không chỉ hiển thị một hình ảnh lá số cố định. Lá số phải được tạo từ dữ liệu thực tế.
+
+### 4. Trang luận giải
+
+Các chuyên mục được tổ chức theo dữ liệu và quy tắc thực sự có trong hệ thống, chẳng hạn:
+
+- Tổng quan lá số.
+- Mệnh và Thân.
+- Công danh, sự nghiệp.
+- Tài chính.
+- Tình cảm và gia đình.
+- Các mối quan hệ.
+- Sức khỏe theo góc nhìn truyền thống.
+- Các giai đoạn vận hạn.
+
+Không bắt buộc phải có tất cả chuyên mục ngay từ phiên bản đầu tiên. Chỉ bật các chức năng đã có quy tắc, dữ liệu và kiểm thử phù hợp.
+
+### 5. Chatbot AI
+
+Tạo giao diện hỏi đáp cho phép người dùng:
+
+- Hỏi về một cung.
+- Hỏi về một sao.
+- Hỏi về tổ hợp sao.
+- Yêu cầu giải thích thuật ngữ.
+- Yêu cầu so sánh các cách luận giải trong tài liệu.
+- Yêu cầu dẫn nguồn.
+- Xem lịch sử hội thoại nếu đã bật chức năng này.
+
+Chatbot phải nhận được dữ liệu lá số đúng của người dùng trong phạm vi được cho phép.
+
+Không để chatbot tự truy cập lá số của tài khoản khác.
+
+### 6. Trang quản trị
+
+Bao gồm:
+
+- Quản lý tài khoản.
+- Quản lý tài liệu.
+- Quản lý nguồn.
+- Quản lý quy tắc.
+- Duyệt các quy tắc AI đề xuất.
+- Quản lý trường phái và dị bản.
+- Quản lý bộ kiểm thử.
+- Theo dõi lỗi luận giải.
+- Theo dõi mức độ sử dụng AI.
+- Quản lý cấu hình hệ thống.
+
+---
+
+## IX. CƠ SỞ DỮ LIỆU VÀ API
+
+Hãy thiết kế cơ sở dữ liệu có khóa chính, khóa ngoại, chỉ mục và ràng buộc phù hợp.
+
+Các nhóm bảng ban đầu nên gồm:
+
+- `users`
+- `user_preferences`
+- `birth_profiles`
+- `charts`
+- `chart_palaces`
+- `chart_stars`
+- `documents`
+- `document_versions`
+- `document_sections`
+- `source_references`
+- `tuvi_terms`
+- `tuvi_rules`
+- `rule_sources`
+- `rule_conflicts`
+- `rule_reviews`
+- `chart_interpretations`
+- `chat_sessions`
+- `chat_messages`
+- `test_cases`
+- `test_results`
+- `audit_logs`
+
+Đây là danh mục đề xuất. Có thể thay đổi cấu trúc sau khi phân tích nghiệp vụ.
+
+Các API chính:
+
+- `POST /api/charts`: Tạo lá số.
+- `GET /api/charts/{id}`: Xem lá số.
+- `GET /api/charts/{id}/interpretation`: Lấy phần luận giải.
+- `POST /api/interpretations`: Yêu cầu luận giải.
+- `POST /api/chat`: Gửi câu hỏi cho AI.
+- `GET /api/documents`: Tra cứu tài liệu.
+- `GET /api/rules`: Tra cứu quy tắc.
+- `GET /api/rules/{id}`: Xem chi tiết quy tắc và nguồn.
+- `POST /api/admin/documents`: Tải tài liệu lên.
+- `POST /api/admin/rules/{id}/review`: Duyệt quy tắc.
+
+Phải bổ sung xác thực, phân quyền, kiểm tra dữ liệu và xử lý lỗi cho các API thích hợp.
+
+Không coi danh sách trên là hợp đồng API cuối cùng nếu chưa thiết kế chi tiết request và response.
+
+---
+
+## X. BẢO MẬT VÀ QUYỀN RIÊNG TƯ
+
+Website phải có:
+
+- Đăng ký và đăng nhập an toàn.
+- Phân quyền người dùng và quản trị viên.
+- Kiểm tra quyền sở hữu trước khi đọc, sửa hoặc xóa lá số.
+- Bảo vệ API key.
+- Giới hạn tốc độ gọi API.
+- Kiểm tra dữ liệu đầu vào.
+- Chống truy cập trái phép.
+- Nhật ký lỗi không chứa dữ liệu cá nhân không cần thiết.
+- Chính sách quyền riêng tư.
+- Chức năng xóa lá số và tài khoản phù hợp.
+- Cơ chế quản lý lịch sử trò chuyện.
+- Cơ chế sao lưu và phục hồi dữ liệu.
+
+Chỉ thu thập dữ liệu cần thiết. Giải thích cho người dùng mục đích thu thập, thời gian lưu trữ và cách xóa dữ liệu.
+
+Không đưa thông tin cá nhân hoặc lá số của người dùng vào prompt hay log nếu không cần thiết.
+
+Nếu sử dụng dịch vụ AI bên ngoài, phải thông báo rõ việc xử lý dữ liệu theo chính sách của dịch vụ đó.
+
+---
+
+## XI. KIỂM THỬ VÀ ĐÁNH GIÁ CHẤT LƯỢNG
+
+Xây dựng bộ kiểm thử riêng cho từng thành phần.
+
+### 1. Kiểm thử lập lá số
+
+Đánh giá:
+
+- Tính đúng của chuyển đổi lịch.
+- Tính đúng của dữ liệu đầu vào.
+- Tính nhất quán của quy tắc an sao.
+- Kết quả tại các ranh giới thời gian.
+- Tính lặp lại của kết quả.
+
+### 2. Kiểm thử truy xuất tài liệu
+
+Kiểm tra:
+
+- Tài liệu có tồn tại không.
+- Trích dẫn có đúng trang không.
+- Đoạn trích có thực sự hỗ trợ nhận định không.
+- Hệ thống có tìm được quy tắc liên quan không.
+- Các quy tắc mâu thuẫn có được hiển thị không.
+
+### 3. Kiểm thử AI
+
+Tạo các câu hỏi chuẩn có đáp án hoặc tiêu chí đánh giá được chuyên gia xem xét.
+
+Kiểm tra:
+
+- AI có sử dụng đúng dữ liệu lá số không.
+- AI có bịa sao hoặc quy tắc không.
+- AI có phân biệt trích dẫn và diễn giải không.
+- AI có xử lý được nguồn mâu thuẫn không.
+- AI có từ chối đưa ra kết luận khi thiếu căn cứ không.
+- AI có trả lời đúng phạm vi câu hỏi không.
+
+### 4. Kiểm thử giao diện
+
+Kiểm tra trên:
+
+- Máy tính.
+- Máy tính bảng.
+- Điện thoại.
+- Các trình duyệt phổ biến.
+
+### 5. Tiêu chí nghiệm thu
+
+Không đưa website vào sử dụng chính thức nếu:
+
+- Bộ máy lập lá số chưa có bộ kiểm thử cơ bản.
+- Các lỗi nghiêm trọng về quyền truy cập chưa được xử lý.
+- AI thường xuyên tạo nguồn giả.
+- Dữ liệu của người dùng có thể bị truy cập trái phép.
+- Các chức năng quan trọng chỉ là giao diện giả.
+- Chưa có hướng dẫn triển khai và sao lưu.
+
+Phải báo cáo kết quả kiểm thử thực tế. Không tự nhận rằng mọi test đều đạt nếu chưa chạy chúng.
+
+---
+
+## XII. KẾ HOẠCH TRIỂN KHAI THEO GIAI ĐOẠN
+
+Không xây dựng tất cả chức năng cùng lúc. Hãy chia dự án thành các giai đoạn.
+
+### Giai đoạn 1: Phân tích và chuẩn hóa tài liệu
+
+Thực hiện:
+
+- Đọc tài liệu nền tảng.
+- Lập danh mục chương và chủ đề.
+- Xây dựng danh mục thuật ngữ.
+- Xác định các quy tắc tính toán và luận giải.
+- Xác định nguồn cần đối chiếu.
+- Ghi nhận những điểm chưa rõ.
+- Xây dựng tiêu chí xác minh.
+
+Đầu ra:
+- Tài liệu đặc tả nghiệp vụ.
+- Danh mục nguồn.
+- Danh mục quy tắc.
+- Danh sách vấn đề cần xác minh.
+
+### Giai đoạn 2: Xây dựng bộ máy lập lá số
+
+Thực hiện:
+
+- Thiết kế module tính toán.
+- Thiết kế cấu trúc dữ liệu lá số.
+- Triển khai các quy tắc đã xác định.
+- Viết test case.
+- So sánh kết quả với bộ dữ liệu tham chiếu.
+- Ghi lại các trường hợp chưa giải quyết.
+
+Đầu ra:
+- Module lập lá số.
+- API lập lá số.
+- Bộ kiểm thử tự động.
+
+### Giai đoạn 3: Xây dựng cơ sở tri thức
+
+Thực hiện:
+
+- Nhập tài liệu.
+- Trích xuất văn bản.
+- Tạo hệ thống lưu trữ nguồn.
+- Tạo cơ sở dữ liệu quy tắc.
+- Tạo chức năng tra cứu.
+- Xử lý dị bản và mâu thuẫn.
+- Xây dựng giao diện quản trị tri thức.
+
+Đầu ra:
+- Cơ sở tri thức có thể kiểm tra nguồn.
+- Công cụ duyệt và sửa quy tắc.
+
+### Giai đoạn 4: Xây dựng AI luận giải
+
+Thực hiện:
+
+- Tạo quy trình truy xuất tài liệu.
+- Kết nối dữ liệu lá số.
+- Thiết kế prompt chuyên biệt.
+- Xây dựng cấu trúc câu trả lời.
+- Gắn nguồn cho nhận định.
+- Kiểm tra tính nhất quán.
+- Xây dựng bộ đánh giá chất lượng.
+
+Đầu ra:
+- API luận giải.
+- Chatbot có ngữ cảnh lá số.
+- Cơ chế kiểm tra căn cứ và trích dẫn.
+
+### Giai đoạn 5: Hoàn thiện website
+
+Thực hiện:
+
+- Hoàn thiện giao diện.
+- Xây dựng tài khoản.
+- Lưu và quản lý lá số.
+- Tích hợp chatbot.
+- Tạo trang quản trị.
+- Bổ sung bảo mật.
+- Tối ưu tốc độ và trải nghiệm người dùng.
+
+Đầu ra:
+- Website có các chức năng đã nghiệm thu.
+
+### Giai đoạn 6: Triển khai thực tế
+
+Thực hiện:
+
+- Cấu hình môi trường.
+- Thiết lập cơ sở dữ liệu.
+- Cấu hình biến môi trường.
+- Triển khai ứng dụng.
+- Thiết lập HTTPS.
+- Sao lưu dữ liệu.
+- Theo dõi lỗi.
+- Viết tài liệu vận hành.
+
+Đầu ra:
+- Website có thể triển khai.
+- Hướng dẫn cài đặt và vận hành.
+- Hướng dẫn sao lưu và phục hồi.
+
+---
+
+## XIII. YÊU CẦU VỀ MÃ NGUỒN
+
+Tổ chức mã nguồn rõ ràng, tránh viết toàn bộ hệ thống trong một file.
+
+Cấu trúc tham khảo:
+
+```text
+tuvi-ai/
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── features/
+│   ├── lib/
+│   ├── services/
+│   └── types/
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── repositories/
+│   │   ├── services/
+│   │   ├── chart_engine/
+│   │   ├── knowledge_base/
+│   │   ├── interpretation/
+│   │   └── tests/
+│   ├── migrations/
+│   └── requirements.txt
+├── docs/
+│   ├── architecture.md
+│   ├── business_requirements.md
+│   ├── knowledge_sources.md
+│   ├── chart_engine_spec.md
+│   ├── api_spec.md
+│   └── deployment.md
+├── scripts/
+├── .env.example
+├── docker-compose.yml
+└── README.md
+```
+
+Có thể điều chỉnh cấu trúc theo công nghệ thực tế, nhưng phải giữ các thành phần có ranh giới trách nhiệm rõ ràng.
+
+Yêu cầu mã nguồn:
+
+- Có kiểu dữ liệu rõ ràng.
+- Có xử lý lỗi.
+- Có log phù hợp.
+- Có kiểm thử tự động.
+- Có hướng dẫn cài đặt.
+- Có file cấu hình mẫu.
+- Không ghi API key trực tiếp vào mã nguồn.
+- Không đưa dữ liệu cá nhân thật vào dữ liệu mẫu.
+- Không để lại các nút bấm giả hoặc các chức năng chưa kết nối mà không thông báo.
+- Không sử dụng dữ liệu giả để thay thế kết quả tính toán thật trong môi trường chính thức.
+
+---
+
+## XIV. CÁCH LÀM VIỆC BẮT BUỘC CỦA AI LẬP TRÌNH
+
+Khi bắt đầu dự án, hãy làm việc theo trình tự sau.
+
+**Bước 1:** Kiểm tra những file người dùng đã cung cấp và các thành phần hiện có của dự án.
+
+**Bước 2:** Tóm tắt yêu cầu và xác định những thông tin còn thiếu.
+
+**Bước 3:** Đề xuất kiến trúc và công nghệ phù hợp.
+
+**Bước 4:** Xác định những phần có thể triển khai ngay và những phần cần xác minh trước.
+
+**Bước 5:** Tạo cấu trúc dự án và các file cần thiết.
+
+**Bước 6:** Triển khai từng module theo thứ tự ưu tiên.
+
+**Bước 7:** Chạy kiểm thử sau mỗi module.
+
+**Bước 8:** Sửa các lỗi được phát hiện và kiểm thử lại.
+
+**Bước 9:** Kiểm tra luồng hoạt động từ giao diện đến backend, cơ sở dữ liệu và AI.
+
+**Bước 10:** Cập nhật tài liệu kỹ thuật và hướng dẫn chạy dự án.
+
+Nếu công cụ không thể trực tiếp tạo hoặc chỉnh sửa file, hãy cung cấp mã nguồn và hướng dẫn chính xác để người dùng thực hiện.
+
+Nếu có quyền truy cập môi trường lập trình, hãy trực tiếp tạo hoặc sửa file và chạy các lệnh cần thiết. Không chỉ mô tả những gì có thể làm.
+
+Khi gặp lỗi:
+- Đọc thông báo lỗi.
+- Xác định nguyên nhân.
+- Sửa tại vị trí phù hợp.
+- Chạy lại test.
+- Báo cáo kết quả.
+
+Không được tuyên bố website đã hoàn thành nếu chưa kiểm tra các chức năng chính.
+
+Nếu thiếu thông tin về quy tắc Tử Vi, hãy tạo danh sách cần xác minh thay vì tự đoán.
+
+Nếu thiếu thông tin kỹ thuật không quan trọng, hãy lựa chọn phương án mặc định hợp lý và ghi lại quyết định đó để người dùng có thể thay đổi.
+
+---
+
+## XV. NHIỆM VỤ ĐẦU TIÊN
+
+Ngay sau khi nhận prompt này, hãy bắt đầu thực hiện các công việc sau:
+
+1. Kiểm tra tài liệu Tử Vi Đẩu Số Toàn Thư đã được cung cấp.
+2. Kiểm tra cấu trúc dự án hiện có nếu có.
+3. Đề xuất kiến trúc kỹ thuật cho phiên bản đầu tiên.
+4. Xác định danh mục quy tắc cần trích xuất và kiểm chứng.
+5. Xác định những nguồn bên ngoài cần đối chiếu.
+6. Thiết kế cơ sở dữ liệu ban đầu.
+7. Xây dựng danh sách chức năng MVP.
+8. Tạo cấu trúc mã nguồn.
+9. Bắt đầu triển khai chức năng đầu tiên có thể kiểm thử.
+10. Báo cáo rõ file nào đã tạo, chức năng nào đã chạy và vấn đề nào còn tồn tại.
+
+### Tiêu chí ưu tiên
+
+Thứ tự ưu tiên của dự án là:
+
+1. Tính đúng đắn của dữ liệu lập lá số.
+2. Khả năng truy xuất và kiểm tra nguồn.
+3. Tính nhất quán của quy tắc luận giải.
+4. Bảo mật dữ liệu.
+5. Khả năng kiểm thử và bảo trì.
+6. Trải nghiệm giao diện.
+7. Các chức năng mở rộng.
+
+**Bắt đầu xây dựng dự án ngay. Không dừng lại ở việc trả lời bằng một kế hoạch chung chung. Hãy tạo sản phẩm theo từng giai đoạn, kiểm thử từng chức năng và báo cáo trung thực về tiến độ thực tế.**
